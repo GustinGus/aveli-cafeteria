@@ -1,0 +1,76 @@
+/* Avelí Cafeteria — reset + design tokens + fundo (Etapa 2) */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:root {
+  /* Cores — extraídas da identidade oficial da Avelí */
+  --color-primary: #644773;
+  --color-background: #FAF8DE;
+  --color-on-primary: #FAF8DE;
+  --color-on-background: #644773;
+
+  /* Verde-oliva da moldura do cardápio físico — estimado visualmente,
+     pendente de confirmação por amostragem de pixel (Etapa 3, requer os
+     arquivos de imagem reais em design-systems/aveli-cafeteria/reference/) */
+  --color-frame: #9CA173;
+
+  /* Tom suave para texto secundário/meta — derivado do primary, não um
+     hex novo arbitrário */
+  --color-text-muted: color-mix(in srgb, var(--color-primary) 68%, var(--color-background));
+
+  /* Tipografia — família definitiva só é escolhida na Etapa 3 (requer
+     amostragem de crop do logo/cardápio reais). Placeholder de sistema
+     por enquanto para não travar o fundo nesta etapa. */
+  --font-display: serif;
+  --font-body: sans-serif;
+
+  /* Escala de espaçamento */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-body);
+}
