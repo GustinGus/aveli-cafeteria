@@ -1,25 +1,36 @@
-AVELÍ CAFETERIA — WIREFRAME TIPADO (format=ascii, brief mode)
-Fonte: brief do usuário (seções solicitadas) + conteúdo real extraído das
-imagens de referência (logo, cartão, cardápio). Nenhum texto foi inventado;
-itens sem conteúdo confirmado usam "...".
+AVELÍ CAFETERIA — WIREFRAME TIPADO (format=ascii, brief mode) — v2
+Fonte: imagens de referência (logo, cartão, cardápio) + brief do usuário.
+Nenhum texto foi inventado; itens sem conteúdo confirmado usam "...".
+Revisão v2: mantém a estrutura/conteúdo aprovados na v1 e adiciona os itens
+obrigatórios pedidos nesta rodada (ver changelog na resposta do turno).
+
+DIRETRIZES MOBILE (não são tags de tela — orientam a implementação futura):
+- viewport principal: 390px.
+- nenhuma rolagem horizontal da página inteira.
+- áreas de toque confortáveis em todos os controles (catnav, itens de menu,
+  stepper de quantidade, botões).
+- catnav com scroll horizontal (não quebra linha).
+- carrinho sempre acessível via ícone no header + barra flutuante inferior.
+- CTA principal ("VER CARDÁPIO") visível já no hero, sem scroll.
 ================================================================================
 
 
 ################################################################################
-# MOBILE
+# MOBILE (390px)
 ################################################################################
 
 --------------------------------------------------------------------------
-TELA: Principal (scroll)
+TELA: Principal (scroll) — header fixo/sticky no topo
 --------------------------------------------------------------------------
 +------------------------------------------------------------+
-| header                                                      |
+| header (sticky)                                             |
 | [ico:logo] [t1: Avelí]                        [ico:cart]   |
 +------------------------------------------------------------+
 | hero                                                        |
 |                    [ico:symbol]                             |
 |                    [h1: Avelí]                              |
-|      [t2: Um sonho que se transformou em café]              |
+|      [t2: Um sonho que se transformou em café.]             |
+|                 [btn: VER CARDÁPIO]                          |
 +------------------------------------------------------------+
 | brand                                                        |
 | [t1: Avelí,]                                                |
@@ -30,11 +41,13 @@ TELA: Principal (scroll)
 |      desfrutar de uma boa xícara de café.]                  |
 | [t3: Com carinho, Equipe Avelí]                              |
 +------------------------------------------------------------+
-| catnav                                                       |
-| [btn: CAFÉ] [lnk: COM LEITE] [lnk: FILTRADOS]                |
-| [lnk: GELADAS] [lnk: SABOREAR] [lnk: ADOÇAR]                 |
+| catnav (scroll horizontal, sem quebra de linha)              |
+| [btn: CAFÉ] [lnk: COM LEITE] [lnk: FILTRADOS] [lnk: GELADAS] >
+| [lnk: SABOREAR] [lnk: ADOÇAR] >                               |
 +------------------------------------------------------------+
-| menu                                                          |
+| menu — composição editorial: NOME + PREÇO na mesma linha;    |
+|         descrição (quando existir) na linha seguinte.        |
+|         Cada linha de produto é clicável → abre "modal".     |
 |  +----------------------------------------------------------+
 |  | cat-cafe                                                  |
 |  | [h2: CAFÉ]                                                |
@@ -109,7 +122,7 @@ TELA: Principal (scroll)
 |      de história/fundação pendente]                          |
 +------------------------------------------------------------+
 | location                                                      |
-| [h2: LOCALIZAÇÃO]                                             |
+| [h2: ONDE ESTAMOS]                                            |
 | [t3: ... endereço pendente]                                   |
 | [t3: ... horário de funcionamento pendente]                   |
 | [img:map]                                                     |
@@ -120,16 +133,25 @@ TELA: Principal (scroll)
 +------------------------------------------------------------+
 | footer                                                         |
 | [ico:symbol] [t1: Avelí]                                       |
-| [lnk: Sobre] [lnk: Localização] [lnk: Instagram]                |
+| [lnk: Sobre] [lnk: Onde estamos] [lnk: Instagram]                |
++------------------------------------------------------------+
+
+  (quando o carrinho tem 1+ itens, barra flutuante fixa sobrepõe o rodapé
+   da viewport, acima da área segura inferior — sempre visível durante o
+   scroll da tela principal)
++------------------------------------------------------------+
+| floatcart (fixo, base da tela)                               |
+| [ico:cart] [btn: VER PEDIDO • X ITENS • R$ TOTAL]            |
 +------------------------------------------------------------+
 
 
 --------------------------------------------------------------------------
-TELA: Modal do produto
+TELA: Modal do produto — bottom sheet (ancorado à base da tela)
 --------------------------------------------------------------------------
 +------------------------------------------------------------+
-| modal                                                        |
-| [btn3: fechar x]                                             |
+| modal (bottom sheet)                                         |
+|                    [ico:handle]                              |
+| [btn3: fechar x]                                              |
 | [img:produto]                                                 |
 | [h2: nome do item]                                            |
 | [t2: descrição do item, quando existir no cardápio]            |
@@ -150,16 +172,16 @@ TELA: Carrinho
 --------------------------------------------------------------------------
 +------------------------------------------------------------+
 | cart                                                          |
-| [h2: Seu carrinho]                                             |
+| [h2: Seu carrinho]                        [btn3: Limpar carrinho] |
 |  +---------------------------------------------------+
 |  | item                                                |
 |  | [t1: nome do item] [t3: opção de leite, se houver]   |
-|  | [ico:minus] [t1: qtd] [ico:plus]      [t2: subtotal]  |
+|  | [ico:minus] [t1: qtd] [ico:plus]  [t2: subtotal] [ico:remover] |
 |  +---------------------------------------------------+
 |  +---------------------------------------------------+
 |  | item2                                               |
 |  | [t1: nome do item] [t3: opção de leite, se houver]   |
-|  | [ico:minus] [t1: qtd] [ico:plus]      [t2: subtotal]  |
+|  | [ico:minus] [t1: qtd] [ico:plus]  [t2: subtotal] [ico:remover] |
 |  +---------------------------------------------------+
 | [t1: Total]                                 [t2: valor]        |
 | [btn: Finalizar pedido]                                        |
@@ -167,7 +189,7 @@ TELA: Carrinho
 
 
 --------------------------------------------------------------------------
-TELA: Finalização
+TELA: Finalização — geração de mensagem para Instagram (sem pagamento)
 --------------------------------------------------------------------------
 +------------------------------------------------------------+
 | checkout                                                      |
@@ -176,14 +198,19 @@ TELA: Finalização
 |  | form                                                |
 |  | [t3: Nome]                                           |
 |  | [in: seu nome]                                       |
-|  | [t3: Telefone]                                       |
-|  | [in: (00) 00000-0000]                                |
-|  | [t3: Modalidade]                                     |
-|  | [t3: ... retirada / entrega / consumo local pendente |
-|  |      de definição]                                   |
+|  | [t3: Observação]                                     |
+|  | [in: alguma observação para o pedido?]                |
 |  +---------------------------------------------------+
-| [t1: Total do pedido]                       [t2: valor]        |
-| [btn: Confirmar pedido]                                        |
+|  +---------------------------------------------------+
+|  | summary                                             |
+|  | [h3: Resumo do pedido]                              |
+|  | [t1: nome do item x qtd]           [t2: subtotal]    |
+|  | [t1: nome do item x qtd]           [t2: subtotal]    |
+|  | [t1: Total]                        [t2: valor]       |
+|  +---------------------------------------------------+
+| [btn: Gerar mensagem]                                          |
+| [btn2: Copiar mensagem]                                        |
+| [btn2: Abrir Instagram]                                        |
 +------------------------------------------------------------+
 
 
@@ -193,10 +220,11 @@ TELA: Confirmação
 +------------------------------------------------------------+
 | confirm                                                       |
 | [ico:check]                                                    |
-| [h2: Pedido confirmado]                                         |
-| [t2: ... mensagem de confirmação / próximos passos pendente     |
-|      de definição (retirada / entrega)]                         |
-| [btn: Voltar ao início]                                         |
+| [h2: Mensagem pronta]                                           |
+| [t2: Mensagem copiada. Abra o Instagram da Avelí e envie por    |
+|      direct para finalizar seu pedido.]                         |
+| [btn: Abrir Instagram]                                          |
+| [btn2: Voltar ao início]                                        |
 +------------------------------------------------------------+
 
 
@@ -205,10 +233,10 @@ TELA: Confirmação
 ################################################################################
 
 --------------------------------------------------------------------------
-TELA: Principal (scroll)
+TELA: Principal (scroll) — header fixo/sticky no topo
 --------------------------------------------------------------------------
 +--------------------------------------------------------------------------------------------+
-| header                                                                                       |
+| header (sticky)                                                                              |
 | [ico:logo] [t1: Avelí]   [btn: CAFÉ] [lnk: COM LEITE] [lnk: FILTRADOS] [lnk: GELADAS]        |
 | [lnk: SABOREAR] [lnk: ADOÇAR]                                                [ico:cart]      |
 +--------------------------------------------------------------------------------------------+
@@ -217,7 +245,8 @@ TELA: Principal (scroll)
 |  | hero-text                                 |  | hero-symbol                           |     |
 |  | [h1: Avelí]                               |  |          [ico:symbol]                  |     |
 |  | [t2: Um sonho que se transformou em       |  |                                        |     |
-|  |      café]                                |  |                                        |     |
+|  |      café.]                               |  |                                        |     |
+|  | [btn: VER CARDÁPIO]                       |  |                                        |     |
 |  +------------------------------------------+  +--------------------------------------+     |
 +--------------------------------------------------------------------------------------------+
 | brand                                                                                         |
@@ -229,7 +258,7 @@ TELA: Principal (scroll)
 |                         boa xícara de café.]                                                  |
 |                    [t3: Com carinho, Equipe Avelí]                                            |
 +--------------------------------------------------------------------------------------------+
-| menu                                                                                          |
+| menu — mesma composição editorial (NOME + PREÇO / descrição), 2 colunas               |
 |  +---------------------------------------------+  +---------------------------------------+  |
 |  | cat-cafe                                     |  | cat-comleite                          |  |
 |  | [h2: CAFÉ]                                   |  | [h2: COM LEITE]                       |  |
@@ -273,7 +302,7 @@ TELA: Principal (scroll)
 | location                                                                                       |
 |  +------------------------------------------+  +----------------------------------------+    |
 |  | location-text                              |  | location-map                           |    |
-|  | [h2: LOCALIZAÇÃO]                          |  |              [img:map]                  |    |
+|  | [h2: ONDE ESTAMOS]                         |  |              [img:map]                  |    |
 |  | [t3: ... endereço pendente]                |  |                                         |    |
 |  | [t3: ... horário pendente]                 |  |                                         |    |
 |  +------------------------------------------+  +----------------------------------------+    |
@@ -283,12 +312,15 @@ TELA: Principal (scroll)
 | [img:post1] [img:post2] [img:post3] [img:post4] [img:post5] [img:post6]                        |
 +--------------------------------------------------------------------------------------------+
 | footer                                                                                         |
-| [ico:symbol] [t1: Avelí]          [lnk: Sobre] [lnk: Localização] [lnk: Instagram]             |
+| [ico:symbol] [t1: Avelí]          [lnk: Sobre] [lnk: Onde estamos] [lnk: Instagram]            |
 +--------------------------------------------------------------------------------------------+
+
+  (barra flutuante do carrinho é um padrão mobile-only — no desktop o carrinho
+   já fica acessível via [ico:cart] fixo no header + painel lateral abaixo)
 
 
 --------------------------------------------------------------------------
-TELA: Modal do produto
+TELA: Modal do produto — dialog centralizado (não bottom sheet no desktop)
 --------------------------------------------------------------------------
 +----------------------------------------------------------------------+
 | modal                                                                  |
@@ -317,17 +349,18 @@ TELA: Carrinho (painel lateral)
                                           +----------------------------------+
                                           | cart                               |
                                           | [h2: Seu carrinho]                 |
+                                          |            [btn3: Limpar carrinho] |
                                           |  +------------------------------+  |
                                           |  | item                          |  |
                                           |  | [t1: nome] [t3: opção leite]   |  |
                                           |  | [ico:minus][t1:qtd][ico:plus]  |  |
-                                          |  |                    [t2: valor] |  |
+                                          |  |      [t2: valor] [ico:remover] |  |
                                           |  +------------------------------+  |
                                           |  +------------------------------+  |
                                           |  | item2                         |  |
                                           |  | [t1: nome] [t3: opção leite]   |  |
                                           |  | [ico:minus][t1:qtd][ico:plus]  |  |
-                                          |  |                    [t2: valor] |  |
+                                          |  |      [t2: valor] [ico:remover] |  |
                                           |  +------------------------------+  |
                                           | [t1: Total]           [t2: valor]  |
                                           | [btn: Finalizar pedido]            |
@@ -335,22 +368,22 @@ TELA: Carrinho (painel lateral)
 
 
 --------------------------------------------------------------------------
-TELA: Finalização
+TELA: Finalização — geração de mensagem para Instagram (sem pagamento)
 --------------------------------------------------------------------------
 +----------------------------------------------------------+
 | checkout                                                    |
 | [h2: Finalizar pedido]                                       |
 |  +------------------------------+  +--------------------+  |
 |  | form                          |  | summary              |  |
-|  | [t3: Nome]                    |  | [t1: Total do        |  |
-|  | [in: seu nome]                |  |  pedido] [t2: valor] |  |
-|  | [t3: Telefone]                |  |                      |  |
-|  | [in: (00) 00000-0000]         |  |                      |  |
-|  | [t3: Modalidade]              |  |                      |  |
-|  | [t3: ... retirada / entrega / |  |                      |  |
-|  |  consumo local pendente]      |  |                      |  |
+|  | [t3: Nome]                    |  | [h3: Resumo do       |  |
+|  | [in: seu nome]                |  |  pedido]              |  |
+|  | [t3: Observação]              |  | [t1: item x qtd]      |  |
+|  | [in: alguma observação para   |  |         [t2: subtotal]|  |
+|  |  o pedido?]                   |  | [t1: Total]           |  |
+|  |                               |  |         [t2: valor]   |  |
 |  +------------------------------+  +--------------------+  |
-| [btn: Confirmar pedido]                                      |
+| [btn: Gerar mensagem] [btn2: Copiar mensagem] [btn2: Abrir   |
+| Instagram]                                                    |
 +----------------------------------------------------------+
 
 
@@ -360,8 +393,8 @@ TELA: Confirmação
 +----------------------------------------------------------+
 | confirm                                                      |
 |                        [ico:check]                            |
-|                    [h2: Pedido confirmado]                    |
-|      [t2: ... mensagem de confirmação / próximos passos       |
-|           pendente de definição (retirada / entrega)]         |
-|                   [btn: Voltar ao início]                     |
+|                    [h2: Mensagem pronta]                      |
+|      [t2: Mensagem copiada. Abra o Instagram da Avelí e       |
+|           envie por direct para finalizar seu pedido.]        |
+|              [btn: Abrir Instagram] [btn2: Voltar ao início]  |
 +----------------------------------------------------------+
