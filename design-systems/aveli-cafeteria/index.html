@@ -4,8 +4,543 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Avelí Cafeteria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+
+  <!-- Sprite de ícones genéricos de interface (carrinho, mais, menos, fechar,
+       check). Nenhum deles reproduz o símbolo floral oficial da Avelí. -->
+  <svg style="display:none" aria-hidden="true">
+    <symbol id="icon-cart" viewBox="0 0 24 24">
+      <path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6" />
+      <circle cx="9.5" cy="20.5" r="1.2" />
+      <circle cx="17.5" cy="20.5" r="1.2" />
+    </symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14" />
+    </symbol>
+    <symbol id="icon-minus" viewBox="0 0 24 24">
+      <path d="M5 12h14" />
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24">
+      <path d="M6 6l12 12M18 6L6 18" />
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <path d="M5 12.5l4.5 4.5L19 7" />
+    </symbol>
+  </svg>
+
+  <header class="header">
+    <div class="header__brand">
+      <div class="asset-placeholder asset-placeholder--symbol-sm" role="img" aria-label="Símbolo oficial Avelí (asset pendente)">logo</div>
+      <span class="header__wordmark">Avelí</span>
+    </div>
+    <nav class="header__nav" aria-label="Categorias do cardápio">
+      <a class="lnk is-active" href="#cat-cafe">Café</a>
+      <a class="lnk" href="#cat-comleite">Com leite</a>
+      <a class="lnk" href="#cat-filtrados">Filtrados</a>
+      <a class="lnk" href="#cat-gelado">Geladas</a>
+      <a class="lnk" href="#cat-saborear">Saborear</a>
+      <a class="lnk" href="#cat-adocar">Adoçar</a>
+    </nav>
+    <button class="header__cart" type="button" aria-label="Ver carrinho">
+      <svg class="icon"><use href="#icon-cart"></use></svg>
+      <span class="header__cart-badge" aria-hidden="true">0</span>
+    </button>
+  </header>
+
+  <main>
+
+    <section class="hero" id="hero">
+      <div class="hero__symbol">
+        <div class="asset-placeholder asset-placeholder--symbol-lg" role="img" aria-label="Símbolo floral oficial Avelí (asset pendente — substituir pelo arquivo oficial)">
+          Logo oficial<br>Avelí<br>(pendente)
+        </div>
+      </div>
+      <div class="hero__content">
+        <h1 class="h1 hero__title">Avelí</h1>
+        <span class="hero__subtitle">Cafeteria</span>
+        <p class="t2 hero__tagline">Um sonho que se transformou em café.</p>
+        <a class="btn" href="#menu">Ver cardápio</a>
+      </div>
+    </section>
+
+    <section class="brand" id="brand">
+      <p class="t1">Avelí,</p>
+      <p class="t2">Um sonho que se transformou em café.</p>
+      <p class="t2">Aqui, valorizamos o tempo, os bons ingredientes e o cuidado em cada preparo.</p>
+      <p class="t2">Queremos convidar você a apreciar o momento e desfrutar de uma boa xícara de café.</p>
+      <span class="t3 brand__signature">Com carinho, Equipe Avelí</span>
+    </section>
+
+    <nav class="catnav" aria-label="Categorias do cardápio (mobile)">
+      <a class="lnk is-active" href="#cat-cafe">Café</a>
+      <a class="lnk" href="#cat-comleite">Com leite</a>
+      <a class="lnk" href="#cat-filtrados">Filtrados</a>
+      <a class="lnk" href="#cat-gelado">Bebidas geladas</a>
+      <a class="lnk" href="#cat-saborear">Para saborear</a>
+      <a class="lnk" href="#cat-adocar">Para adoçar</a>
+    </nav>
+
+    <section class="menu" id="menu" aria-label="Cardápio">
+      <div class="menu__grid">
+
+        <div class="menu__category" id="cat-cafe">
+          <div class="menu__category-head">
+            <h2 class="h2">Café</h2>
+          </div>
+          <div class="menu__cupdiagram" aria-hidden="true">
+            <div class="asset-placeholder" style="width:28px;height:32px;">Etapa 4</div>
+            <div class="asset-placeholder" style="width:34px;height:40px;">Etapa 4</div>
+            <div class="asset-placeholder" style="width:40px;height:48px;">Etapa 4</div>
+          </div>
+          <ul class="menu__list">
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row">
+                  <span class="t1 menu__item-name">Espresso italiano</span>
+                  <span class="t2 menu__item-price">R$ 8</span>
+                </span>
+                <span class="menu__item-row menu__item-row--meta">
+                  <span class="t3 menu__item-desc">30 ml</span>
+                  <span class="menu__item-plus" aria-hidden="true">+</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row">
+                  <span class="t1 menu__item-name">Espresso longo</span>
+                  <span class="t2 menu__item-price">R$ 9</span>
+                </span>
+                <span class="menu__item-row menu__item-row--meta">
+                  <span class="t3 menu__item-desc">50 ml</span>
+                  <span class="menu__item-plus" aria-hidden="true">+</span>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row">
+                  <span class="t1 menu__item-name">Americano</span>
+                  <span class="t2 menu__item-price">R$ 12</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu__category" id="cat-comleite">
+          <div class="menu__category-head">
+            <h2 class="h2">Com leite</h2>
+          </div>
+          <ul class="menu__list">
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Macchiato</span><span class="t2 menu__item-price">R$ 9</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Latte macchiato</span><span class="t2 menu__item-price">R$ 13</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Cappuccino italiano — média</span><span class="t2 menu__item-price">R$ 15</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Cappuccino da casa</span><span class="t2 menu__item-price">R$ 16</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Nossa receita especial com café, cacau e um toque de canela</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Cappuccino baunilha</span><span class="t2 menu__item-price">R$ 18</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Mocha</span><span class="t2 menu__item-price">R$ 18</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Espresso, leite e chocolate</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Caramel latte clássico</span><span class="t2 menu__item-price">R$ 18</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Espresso, leite e caramelo, uma combinação equilibrada e aconchegante</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Latte avelã &amp; cacau</span><span class="t2 menu__item-price">R$ 19</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Espresso, leite e creme de avelã, finalizado com cacau em pó</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Latte Avelí</span><span class="t2 menu__item-price">R$ 19</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Espresso, leite e creme de leite condensado cozido lentamente</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Café cremoso Avelí</span><span class="t2 menu__item-price">R$ 16</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Creme aerado de café e leite vaporizado. Cremoso, doce e acolhedor</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Chocolate quente</span><span class="t2 menu__item-price">R$ 15</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Cacau 50%</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Chocolate quente cremoso</span><span class="t2 menu__item-price">R$ 17</span></span></button></li>
+          </ul>
+        </div>
+
+        <div class="menu__category" id="cat-filtrados">
+          <div class="menu__category-head">
+            <h2 class="h2">Filtrados</h2>
+            <span class="t3 menu__category-note">Cafés preparados com calma, método e cuidado</span>
+          </div>
+          <ul class="menu__list">
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Prensa Francesa</span><span class="t2 menu__item-price">R$ 22</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">300 ml — Infusão com filtro metálico. Café encorpado e intenso, textura aveludada.</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">V60</span><span class="t2 menu__item-price">R$ 20</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">250 ml — Filtragem delicada em cone de papel. Café leve, limpo e aromático.</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Aeropress</span><span class="t2 menu__item-price">R$ 20</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">220 ml — Extração por infusão e pressão. Café equilibrado, macio e aromático.</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="menu__category" id="cat-gelado">
+          <div class="menu__category-head">
+            <h2 class="h2">Bebidas geladas</h2>
+          </div>
+          <ul class="menu__list">
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Latte gelado</span><span class="t2 menu__item-price">R$ 13</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Café gelado com caramelo</span><span class="t2 menu__item-price">R$ 16</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Espresso tônica</span><span class="t2 menu__item-price">R$ 16</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Chocolate gelado</span><span class="t2 menu__item-price">R$ 17</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Cacau 50%</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Suco integral uva</span><span class="t2 menu__item-price">R$ 8</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">180 ml</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Suco integral laranja</span><span class="t2 menu__item-price">R$ 8</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">180 ml</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Soda italiana</span><span class="t2 menu__item-price">R$ 17</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Sabores a confirmar</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Água mineral</span><span class="t2 menu__item-price">R$ 5</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Água com gás</span><span class="t2 menu__item-price">R$ 6</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Coca-cola</span><span class="t2 menu__item-price">R$ 5</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">200 ml</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+          </ul>
+          <span class="t3 menu__footnote">*Temos leite vegetal e sem lactose (+R$ 5,00)</span>
+        </div>
+
+        <div class="menu__category menu__saborear" id="cat-saborear">
+          <div class="menu__saborear-head">
+            <h2 class="h2">Para saborear</h2>
+          </div>
+          <div class="menu__saborear-grid">
+
+            <div class="menu__subcategory" id="sub-toasts">
+              <div class="menu__subcategory-head"><h3 class="h3">Toasts</h3></div>
+              <ul class="menu__list">
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Toast</span><span class="t2 menu__item-price">R$ 10</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Pão de fermentação natural dourado na manteiga</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Toast com requeijão</span><span class="t2 menu__item-price">R$ 14</span></span></button></li>
+                <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Toast com ovos</span><span class="t2 menu__item-price">R$ 21</span></span></button></li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Toast confit</span><span class="t2 menu__item-price">R$ 28</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Pão dourado na manteiga, tomate confit, muçarela derretida, rúcula e azeite</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Toast com ovos, cogumelos e parmesão</span><span class="t2 menu__item-price">R$ 29</span></span></button></li>
+              </ul>
+            </div>
+
+            <div class="menu__subcategory" id="sub-classicos">
+              <div class="menu__subcategory-head"><h3 class="h3">Clássicos da casa</h3></div>
+              <ul class="menu__list">
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Queijo quente</span><span class="t2 menu__item-price">R$ 25</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Pão brioche dourado na manteiga com blend de muçarela e queijo meia cura</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Misto quente</span><span class="t2 menu__item-price">R$ 26</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Pão brioche dourado na manteiga com muçarela e presunto</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Croque Monsieur</span><span class="t2 menu__item-price">R$ 34</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Clássico sanduíche francês feito com pão brioche, presunto, queijo e molho branco, gratinado até ficar dourado e crocante</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Waffle mineiro</span><span class="t2 menu__item-price">R$ 25</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Feito com massa especial de pão de queijo, servida com requeijão cremoso e doce de leite ou goiabada</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <div class="menu__subcategory" id="sub-quiches">
+              <div class="menu__subcategory-head"><h3 class="h3">Quiches &amp; tortas</h3></div>
+              <ul class="menu__list">
+                <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Torta de frango</span><span class="t2 menu__item-price">R$ 22</span></span></button></li>
+                <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Quiche de alho poró</span><span class="t2 menu__item-price">R$ 24</span></span></button></li>
+              </ul>
+            </div>
+
+            <div class="menu__subcategory" id="sub-croissants">
+              <div class="menu__subcategory-head"><h3 class="h3">Croissants</h3></div>
+              <ul class="menu__list">
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Croissant</span><span class="t2 menu__item-price">R$ 14</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Massa folhada, leve, dourada e crocante</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Croissant queijo</span><span class="t2 menu__item-price">R$ 18</span></span></button></li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Croissant misto</span><span class="t2 menu__item-price">R$ 22</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Recheado com muçarela e presunto</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Croissant caprese</span><span class="t2 menu__item-price">R$ 28</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Recheado com muçarela de búfala, tomate cereja e rúcula</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button class="menu__item-btn" type="button">
+                    <span class="menu__item-row"><span class="t1 menu__item-name">Croissant parma</span><span class="t2 menu__item-price">R$ 35</span></span>
+                    <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Recheado com presunto parma, muçarela de búfala, tomate cereja e rúcula</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="menu__category menu__adocar" id="cat-adocar">
+          <div class="menu__category-head">
+            <h2 class="h2">Para adoçar</h2>
+          </div>
+          <ul class="menu__list">
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Brigadeiro gourmet</span><span class="t2 menu__item-price">R$ 8</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Bolo do dia</span><span class="t2 menu__item-price">R$ 14</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Brownie</span><span class="t2 menu__item-price">R$ 15</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Cookie</span><span class="t2 menu__item-price">R$ 15</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Sabores a confirmar</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Bolo de cenoura com cobertura de chocolate</span><span class="t2 menu__item-price">R$ 16</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Bolo de especiarias</span><span class="t2 menu__item-price">R$ 16</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Sem lactose. Aromatizado com canela, preparado com farelo de aveia, leite de coco e açúcar mascavo</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Crumble de maçã</span><span class="t2 menu__item-price">R$ 19</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Maçãs assadas, cobertas por crumble amanteigado crocante, servido quente</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Banoffee</span><span class="t2 menu__item-price">R$ 22</span></span></button></li>
+            <li><button class="menu__item-btn" type="button"><span class="menu__item-row"><span class="t1 menu__item-name">Croissant recheado de creme de avelã</span><span class="t2 menu__item-price">R$ 22</span></span></button></li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Cheesecake</span><span class="t2 menu__item-price">R$ 24</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Creme de queijo sobre base amanteigada, finalizado com a cobertura do dia</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+            <li>
+              <button class="menu__item-btn" type="button">
+                <span class="menu__item-row"><span class="t1 menu__item-name">Tiramisù</span><span class="t2 menu__item-price">R$ 24</span></span>
+                <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">Clássica sobremesa italiana preparada com camadas de biscoito champagne embebido em café, creme de mascarpone e cacau em pó</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2 class="h2">Sobre</h2>
+      <p class="t2">Um sonho que se transformou em café. Aqui, valorizamos o tempo, os bons ingredientes e o cuidado em cada preparo.</p>
+      <p class="t3">Conteúdo adicional de história/fundação pendente.</p>
+    </section>
+
+    <section class="location" id="location">
+      <div class="location__text">
+        <div class="location__head"><h2 class="h2">Onde estamos</h2></div>
+        <p class="t3">Endereço pendente.</p>
+        <p class="t3">Horário de funcionamento pendente.</p>
+      </div>
+      <div class="asset-placeholder asset-placeholder--map" role="img" aria-label="Mapa (aguardando endereço)">mapa — pendente</div>
+    </section>
+
+    <section class="instagram" id="instagram">
+      <div class="instagram__head">
+        <h2 class="h2">Instagram</h2>
+        <span class="t3 instagram__handle">@aveli.cafeteria</span>
+      </div>
+      <div class="instagram__grid">
+        <div class="asset-placeholder asset-placeholder--post" role="img" aria-label="Post do Instagram (pendente)">post</div>
+        <div class="asset-placeholder asset-placeholder--post" role="img" aria-label="Post do Instagram (pendente)">post</div>
+        <div class="asset-placeholder asset-placeholder--post" role="img" aria-label="Post do Instagram (pendente)">post</div>
+        <div class="asset-placeholder asset-placeholder--post" role="img" aria-label="Post do Instagram (pendente)">post</div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">
+      <div class="asset-placeholder asset-placeholder--symbol-sm" role="img" aria-label="Símbolo oficial Avelí (asset pendente)">logo</div>
+    </div>
+    <span class="header__wordmark">Avelí</span>
+    <nav class="footer__nav" aria-label="Links do rodapé">
+      <a class="lnk" href="#about">Sobre</a>
+      <a class="lnk" href="#location">Onde estamos</a>
+      <a class="lnk" href="#instagram">Instagram</a>
+    </nav>
+  </footer>
+
+  <!-- Modal do produto — estrutura visual apenas; abertura/fechamento via
+       JS ainda não implementados nesta etapa. Conteúdo de exemplo real
+       (Latte Avelí) para demonstrar a composição. -->
+  <div class="modal" id="product-modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__sheet" role="dialog" aria-labelledby="modal-title">
+      <div class="modal__handle" aria-hidden="true"></div>
+      <button class="modal__close" type="button" aria-label="Fechar">
+        <svg class="icon"><use href="#icon-close"></use></svg>
+      </button>
+      <div class="modal__media">
+        <div class="asset-placeholder asset-placeholder--photo" role="img" aria-label="Foto do produto (pendente — sem fotos no cardápio físico)">foto — pendente</div>
+      </div>
+      <div class="modal__info">
+        <h2 class="h2" id="modal-title">Latte Avelí</h2>
+        <p class="t2">Espresso, leite e creme de leite condensado cozido lentamente</p>
+        <div class="modal__price-row">
+          <span class="t1">Preço</span>
+          <span class="t2">R$ 19</span>
+        </div>
+        <div class="modal__options">
+          <span class="t3">Leite</span>
+          <div class="modal__option-list">
+            <button class="btn2" type="button">Comum</button>
+            <button class="btn2" type="button">Vegetal (+5)</button>
+            <button class="btn2" type="button">Sem lactose (+5)</button>
+          </div>
+        </div>
+        <div class="modal__qty">
+          <button class="modal__qty-btn" type="button" aria-label="Diminuir quantidade">
+            <svg class="icon"><use href="#icon-minus"></use></svg>
+          </button>
+          <span class="t1">1</span>
+          <button class="modal__qty-btn" type="button" aria-label="Aumentar quantidade">
+            <svg class="icon"><use href="#icon-plus"></use></svg>
+          </button>
+        </div>
+        <button class="btn modal__cta" type="button">Adicionar ao carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Painel do carrinho — estrutura visual apenas; itens abaixo são
+       conteúdo de exemplo (produtos reais do cardápio) só para revisar a
+       composição. Lógica funcional (adicionar/remover/persistir) ainda
+       não implementada nesta etapa. -->
+  <div class="cart" id="cart-panel" hidden>
+    <div class="cart__backdrop"></div>
+    <div class="cart__panel" role="dialog" aria-labelledby="cart-title">
+      <div class="cart__head">
+        <h2 class="h2" id="cart-title">Seu carrinho</h2>
+        <button class="btn3" type="button">Limpar carrinho</button>
+      </div>
+      <span class="t3 cart__example-note">(exemplo ilustrativo — sem lógica funcional ainda)</span>
+
+      <div class="cart__item">
+        <div class="cart__item-row">
+          <span class="t1">Latte Avelí</span>
+          <span class="t2">R$ 19</span>
+        </div>
+        <div class="cart__item-controls">
+          <div class="cart__stepper">
+            <button class="cart__stepper-btn" type="button" aria-label="Diminuir quantidade"><svg class="icon"><use href="#icon-minus"></use></svg></button>
+            <span class="t1">1</span>
+            <button class="cart__stepper-btn" type="button" aria-label="Aumentar quantidade"><svg class="icon"><use href="#icon-plus"></use></svg></button>
+          </div>
+          <button class="btn3 cart__remove" type="button">Remover</button>
+        </div>
+      </div>
+
+      <div class="cart__item">
+        <div class="cart__item-row">
+          <span class="t1">Croissant queijo</span>
+          <span class="t2">R$ 18</span>
+        </div>
+        <div class="cart__item-controls">
+          <div class="cart__stepper">
+            <button class="cart__stepper-btn" type="button" aria-label="Diminuir quantidade"><svg class="icon"><use href="#icon-minus"></use></svg></button>
+            <span class="t1">1</span>
+            <button class="cart__stepper-btn" type="button" aria-label="Aumentar quantidade"><svg class="icon"><use href="#icon-plus"></use></svg></button>
+          </div>
+          <button class="btn3 cart__remove" type="button">Remover</button>
+        </div>
+      </div>
+
+      <div class="cart__total-row">
+        <span class="t1">Total</span>
+        <span class="t1">R$ 37</span>
+      </div>
+      <div class="cart__actions">
+        <button class="btn" type="button">Finalizar pedido</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
