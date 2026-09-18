@@ -21,6 +21,7 @@
   var cartItemsEl = document.getElementById('cart-items');
   var cartTotalEl = document.getElementById('cart-total');
   var cartBadge = document.getElementById('cart-badge');
+  var cartCheckoutBtn = document.getElementById('cart-checkout-btn');
 
   var floatcart = document.getElementById('floatcart');
   var floatcartLabel = document.getElementById('floatcart-label');
@@ -37,6 +38,25 @@
   function parsePrice(text) {
     var digits = (text || '').replace(/[^0-9]/g, '');
     return digits ? parseInt(digits, 10) : 0;
+  }
+
+  // Fonte única do total do pedido — lida direto do array "cart" (o mesmo
+  // que o carrinho usa para renderizar). A finalização do pedido reaproveita
+  // esta função em vez de recalcular por conta própria.
+  function getCartLines() {
+    return cart.map(function (line) {
+      return {
+        name: line.name,
+        milk: line.milk,
+        qty: line.qty,
+        unitPrice: line.unitPrice,
+        subtotal: line.unitPrice * line.qty
+      };
+    });
+  }
+
+  function getCartTotal() {
+    return getCartLines().reduce(function (sum, line) { return sum + line.subtotal; }, 0);
   }
 
   // ---------- Modal do produto ----------
@@ -231,6 +251,7 @@
     cartBadge.textContent = String(itemCount);
     floatcartLabel.textContent = 'VER PEDIDO • ' + itemCount + (itemCount === 1 ? ' ITEM' : ' ITENS') + ' • ' + formatBRL(total);
     floatcart.classList.toggle('is-visible', itemCount > 0);
+    cartCheckoutBtn.disabled = cart.length === 0;
   }
 
   document.getElementById('cart-clear-btn').addEventListener('click', function () {
@@ -463,6 +484,224 @@
     }, true);
 
     updateCurrentFromScroll();
+  })();
+
+  // ---------- Finalização do pedido (WhatsApp) ----------
+
+  var WHATSAPP_NUMBER = '5511995865222';
+
+  (function () {
+    var checkout = document.getElementById('checkout-panel');
+    if (!checkout) return;
+
+    var formView = document.getElementById('checkout-form-view');
+    var confirmView = document.getElementById('checkout-confirm-view');
+    var nameInput = document.getElementById('checkout-name');
+    var nameError = document.getElementById('checkout-name-error');
+    var phoneInput = document.getElementById('checkout-phone');
+    var modeList = document.getElementById('checkout-mode-list');
+    var modeError = document.getElementById('checkout-mode-error');
+    var notesInput = document.getElementById('checkout-notes');
+    var notesCounter = document.getElementById('checkout-notes-counter');
+    var summaryItemsEl = document.getElementById('checkout-summary-items');
+    var totalEl = document.getElementById('checkout-total');
+    var cartErrorEl = document.getElementById('checkout-cart-error');
+    var submitBtn = document.getElementById('checkout-submit-btn');
+    var backBtn = document.getElementById('checkout-back-btn');
+    var notesMax = 240;
+
+    var selectedMode = '';
+
+    function renderCheckoutSummary() {
+      summaryItemsEl.innerHTML = '';
+      getCartLines().forEach(function (line) {
+        var row = document.createElement('div');
+        row.className = 'checkout__summary-row';
+        row.innerHTML =
+          '<div class="checkout__summary-row-top">' +
+            '<span class="t1"></span>' +
+            '<span class="t2"></span>' +
+          '</div>' +
+          '<span class="t3"></span>';
+        var nameLabel = line.qty + 'x ' + line.name + (line.milk !== 'Comum' ? ' — ' + line.milk : '');
+        row.querySelectorAll('span')[0].textContent = nameLabel;
+        row.querySelectorAll('span')[1].textContent = formatBRL(line.subtotal);
+        row.querySelectorAll('span')[2].textContent = 'Unitário: ' + formatBRL(line.unitPrice);
+        summaryItemsEl.appendChild(row);
+      });
+      totalEl.textContent = formatBRL(getCartTotal());
+    }
+
+    function resetCheckoutForm() {
+      nameInput.value = '';
+      phoneInput.value = '';
+      notesInput.value = '';
+      notesCounter.textContent = '0 / ' + notesMax;
+      selectedMode = '';
+      modeList.querySelectorAll('.btn2').forEach(function (b) {
+        b.classList.remove('is-active');
+      });
+      nameError.hidden = true;
+      modeError.hidden = true;
+      cartErrorEl.hidden = true;
+      formView.hidden = false;
+      confirmView.hidden = true;
+    }
+
+    function openCheckout() {
+      resetCheckoutForm();
+      renderCheckoutSummary();
+      checkout.hidden = false;
+      document.body.style.overflow = 'hidden';
+      nameInput.focus();
+    }
+
+    function closeCheckout() {
+      checkout.hidden = true;
+      document.body.style.overflow = '';
+      // O botão "Finalizar pedido" mora dentro do painel do carrinho, que
+      // já está fechado neste ponto do fluxo (fecha antes do checkout
+      // abrir) — focar um elemento invisível falha silenciosamente. O
+      // ícone do carrinho no header é o alvo visível equivalente.
+      document.getElementById('header-cart-btn').focus();
+    }
+
+    // Prende o foco dentro do painel enquanto ele estiver aberto (Tab no
+    // último campo volta ao primeiro, Shift+Tab no primeiro vai ao último)
+    // — sem isso o Tab escapava para elementos de fundo (ex.: a barra
+    // flutuante do pedido) atrás do overlay.
+    var panelEl = checkout.querySelector('.checkout__panel');
+    panelEl.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = panelEl.querySelectorAll(
+        'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      focusable = Array.prototype.filter.call(focusable, function (el) {
+        return el.offsetParent !== null; // visível (não hidden/display:none)
+      });
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    cartCheckoutBtn.addEventListener('click', function () {
+      if (cart.length === 0) return;
+      closeCart();
+      openCheckout();
+    });
+
+    document.querySelectorAll('[data-close="checkout"]').forEach(function (el) {
+      el.addEventListener('click', closeCheckout);
+    });
+
+    backBtn.addEventListener('click', function () {
+      closeCheckout();
+    });
+
+    nameInput.addEventListener('input', function () {
+      if (nameInput.value.trim()) nameError.hidden = true;
+    });
+
+    notesInput.addEventListener('input', function () {
+      if (notesInput.value.length > notesMax) {
+        notesInput.value = notesInput.value.slice(0, notesMax);
+      }
+      notesCounter.textContent = notesInput.value.length + ' / ' + notesMax;
+    });
+
+    modeList.addEventListener('click', function (e) {
+      var btn = e.target.closest('.btn2');
+      if (!btn) return;
+      modeList.querySelectorAll('.btn2').forEach(function (b) {
+        b.classList.remove('is-active');
+      });
+      btn.classList.add('is-active');
+      selectedMode = btn.getAttribute('data-mode');
+      modeError.hidden = true;
+    });
+
+    // Texto puro em toda a mensagem — nome/telefone/observação nunca são
+    // interpretados como HTML, só concatenados como string e depois
+    // codificados via encodeURIComponent para a URL do WhatsApp.
+    function buildWhatsAppMessage() {
+      var lines = getCartLines();
+      var total = getCartTotal();
+      var name = nameInput.value.trim();
+      var phone = phoneInput.value.trim();
+      var notes = notesInput.value.trim();
+
+      var parts = [];
+      parts.push('Olá! Gostaria de fazer um pedido na Avelí ☕️');
+      parts.push('');
+      parts.push('*PEDIDO*');
+      lines.forEach(function (line) {
+        var label = line.qty + 'x ' + line.name + (line.milk !== 'Comum' ? ' (' + line.milk + ')' : '');
+        parts.push(label + ' — ' + formatBRL(line.subtotal));
+      });
+      parts.push('');
+      parts.push('*Total: ' + formatBRL(total) + '*');
+      parts.push('');
+      parts.push('*Cliente:* ' + name);
+      if (phone) {
+        parts.push('*Telefone:* ' + phone);
+      }
+      parts.push('*Modalidade:* ' + selectedMode);
+      if (notes) {
+        parts.push('');
+        parts.push('*Observações:*');
+        parts.push(notes);
+      }
+      return parts.join('\n');
+    }
+
+    submitBtn.addEventListener('click', function () {
+      var isValid = true;
+      var firstInvalid = null;
+
+      if (cart.length === 0) {
+        cartErrorEl.hidden = false;
+        isValid = false;
+      } else {
+        cartErrorEl.hidden = true;
+      }
+
+      if (!nameInput.value.trim()) {
+        nameError.hidden = false;
+        isValid = false;
+        firstInvalid = firstInvalid || nameInput;
+      }
+
+      if (!selectedMode) {
+        modeError.hidden = false;
+        isValid = false;
+        firstInvalid = firstInvalid || modeList.querySelector('.btn2');
+      }
+
+      if (!isValid) {
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      var message = buildWhatsAppMessage();
+      var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+      // Nova aba: preserva o estado do site (carrinho incluído) mesmo
+      // depois de o WhatsApp abrir.
+      window.open(url, '_blank', 'noopener');
+
+      formView.hidden = true;
+      confirmView.hidden = false;
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !checkout.hidden) closeCheckout();
+    });
   })();
 
   renderCart();

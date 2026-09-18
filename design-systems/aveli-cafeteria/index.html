@@ -606,7 +606,69 @@
       <div class="cart__actions">
         <button class="btn" type="button" id="cart-checkout-btn" disabled>Finalizar pedido</button>
       </div>
-      <p class="t3" id="cart-checkout-note">A finalização do pedido (nome, observação e envio da mensagem) é a etapa seguinte do wireframe — ainda não implementada nesta rodada.</p>
+    </div>
+  </div>
+
+  <!-- Finalização do pedido — reaproveita o array "cart" (assets/app.js)
+       como única fonte de verdade para produtos/quantidades/preços/total;
+       nada é duplicado aqui. Envio real via WhatsApp (wa.me), sem backend. -->
+  <div class="checkout" id="checkout-panel" hidden>
+    <div class="checkout__backdrop" data-close="checkout"></div>
+    <div class="checkout__panel" role="dialog" aria-labelledby="checkout-title">
+      <div class="checkout__handle" aria-hidden="true"></div>
+      <button class="checkout__close" type="button" aria-label="Fechar" data-close="checkout">
+        <svg class="icon"><use href="#icon-close"></use></svg>
+      </button>
+
+      <div id="checkout-form-view">
+        <h2 class="h2" id="checkout-title">Finalizar pedido</h2>
+
+        <div class="checkout__field">
+          <label class="t3 checkout__label" for="checkout-name">Nome *</label>
+          <input class="checkout__input" type="text" id="checkout-name" maxlength="80" autocomplete="name">
+          <span class="checkout__error" id="checkout-name-error" role="alert" hidden>Informe seu nome para continuar.</span>
+        </div>
+
+        <div class="checkout__field">
+          <label class="t3 checkout__label" for="checkout-phone">Telefone</label>
+          <input class="checkout__input" type="tel" id="checkout-phone" maxlength="20" autocomplete="tel" inputmode="tel">
+        </div>
+
+        <div class="checkout__field">
+          <span class="t3 checkout__label">Modalidade *</span>
+          <div class="checkout__mode-list" id="checkout-mode-list">
+            <button class="btn2" type="button" data-mode="Retirar na cafeteria">Retirar na cafeteria</button>
+            <button class="btn2" type="button" data-mode="Consumir no local">Consumir no local</button>
+          </div>
+          <span class="checkout__error" id="checkout-mode-error" role="alert" hidden>Escolha como deseja receber seu pedido.</span>
+        </div>
+
+        <div class="checkout__field">
+          <label class="t3 checkout__label" for="checkout-notes">Observações do pedido</label>
+          <textarea class="checkout__textarea" id="checkout-notes" maxlength="240" rows="3" placeholder="Ex.: sem açúcar, retirar ingrediente, preferência de preparo..."></textarea>
+          <span class="t3 checkout__counter" id="checkout-notes-counter">0 / 240</span>
+        </div>
+
+        <div class="checkout__summary">
+          <h3 class="h3">Seu pedido</h3>
+          <div id="checkout-summary-items"></div>
+          <div class="checkout__total-row">
+            <span class="t1">Total</span>
+            <span class="t1" id="checkout-total">R$ 0</span>
+          </div>
+        </div>
+
+        <span class="checkout__error checkout__error--cart" id="checkout-cart-error" role="alert" hidden>Seu carrinho está vazio.</span>
+
+        <button class="btn checkout__submit" type="button" id="checkout-submit-btn">Enviar pedido pelo WhatsApp</button>
+      </div>
+
+      <div id="checkout-confirm-view" hidden>
+        <svg class="icon checkout__confirm-icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+        <h2 class="h2">Pedido preparado para envio</h2>
+        <p class="t2">Confira as informações no WhatsApp e envie a mensagem para concluir seu pedido.</p>
+        <button class="btn3" type="button" id="checkout-back-btn">Voltar ao cardápio</button>
+      </div>
     </div>
   </div>
 
