@@ -31,6 +31,34 @@
     <symbol id="icon-check" viewBox="0 0 24 24">
       <path d="M5 12.5l4.5 4.5L19 7" />
     </symbol>
+    <!-- Etapa 4 — ícones genéricos utilitários (não reproduzem o símbolo da marca) -->
+    <symbol id="icon-cup-sm" viewBox="0 0 24 24">
+      <path d="M5 10h11v4a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4v-4Z" />
+      <path d="M16 11h1.5a2 2 0 0 1 0 4H16" />
+      <path d="M5 10V8h11v2" />
+    </symbol>
+    <symbol id="icon-cup-md" viewBox="0 0 24 24">
+      <path d="M5 7h11v9a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V7Z" />
+      <path d="M16 9h1.5a2 2 0 0 1 0 4H16" />
+      <path d="M5 7V5h11v2" />
+    </symbol>
+    <symbol id="icon-cup-lg" viewBox="0 0 24 24">
+      <path d="M4 6h13v11a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V6Z" />
+      <path d="M17 8.5h2a2.2 2.2 0 0 1 0 4.4h-2" />
+    </symbol>
+    <symbol id="icon-press" viewBox="0 0 24 24">
+      <rect x="7" y="8" width="10" height="12" rx="1" />
+      <path d="M12 3v5M9 3h6" />
+      <path d="M17 12h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2" />
+    </symbol>
+    <symbol id="icon-v60" viewBox="0 0 24 24">
+      <path d="M6 6h12l-5 12h-2L6 6Z" />
+      <path d="M9 6l3 9 3-9" />
+    </symbol>
+    <symbol id="icon-aero" viewBox="0 0 24 24">
+      <rect x="8" y="9" width="8" height="11" rx="1" />
+      <path d="M12 3v6M9 4h6" />
+    </symbol>
   </svg>
 
   <header class="header">
@@ -45,9 +73,9 @@
       <a class="lnk" href="#cat-saborear">Saborear</a>
       <a class="lnk" href="#cat-adocar">Adoçar</a>
     </nav>
-    <button class="header__cart" type="button" aria-label="Ver carrinho">
+    <button class="header__cart" type="button" id="header-cart-btn" aria-label="Ver carrinho">
       <svg class="icon"><use href="#icon-cart"></use></svg>
-      <span class="header__cart-badge" aria-hidden="true">0</span>
+      <span class="header__cart-badge" id="cart-badge" aria-hidden="true">0</span>
     </button>
   </header>
 
@@ -92,9 +120,9 @@
             <h2 class="h2">Café</h2>
           </div>
           <div class="menu__cupdiagram" aria-hidden="true">
-            <div class="asset-placeholder" style="width:28px;height:32px;">Etapa 4</div>
-            <div class="asset-placeholder" style="width:34px;height:40px;">Etapa 4</div>
-            <div class="asset-placeholder" style="width:40px;height:48px;">Etapa 4</div>
+            <svg class="icon" style="width:22px;height:22px;"><use href="#icon-cup-sm"></use></svg>
+            <svg class="icon" style="width:26px;height:26px;"><use href="#icon-cup-md"></use></svg>
+            <svg class="icon" style="width:30px;height:30px;"><use href="#icon-cup-lg"></use></svg>
           </div>
           <ul class="menu__list">
             <li>
@@ -195,19 +223,19 @@
           <ul class="menu__list">
             <li>
               <button class="menu__item-btn" type="button">
-                <span class="menu__item-row"><span class="t1 menu__item-name">Prensa Francesa</span><span class="t2 menu__item-price">R$ 22</span></span>
+                <span class="menu__item-row"><span class="t1 menu__item-name"><svg class="icon" aria-hidden="true" style="width:16px;height:16px;display:inline;vertical-align:-3px;margin-right:6px;"><use href="#icon-press"></use></svg>Prensa Francesa</span><span class="t2 menu__item-price">R$ 22</span></span>
                 <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">300 ml — Infusão com filtro metálico. Café encorpado e intenso, textura aveludada.</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
               </button>
             </li>
             <li>
               <button class="menu__item-btn" type="button">
-                <span class="menu__item-row"><span class="t1 menu__item-name">V60</span><span class="t2 menu__item-price">R$ 20</span></span>
+                <span class="menu__item-row"><span class="t1 menu__item-name"><svg class="icon" aria-hidden="true" style="width:16px;height:16px;display:inline;vertical-align:-3px;margin-right:6px;"><use href="#icon-v60"></use></svg>V60</span><span class="t2 menu__item-price">R$ 20</span></span>
                 <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">250 ml — Filtragem delicada em cone de papel. Café leve, limpo e aromático.</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
               </button>
             </li>
             <li>
               <button class="menu__item-btn" type="button">
-                <span class="menu__item-row"><span class="t1 menu__item-name">Aeropress</span><span class="t2 menu__item-price">R$ 20</span></span>
+                <span class="menu__item-row"><span class="t1 menu__item-name"><svg class="icon" aria-hidden="true" style="width:16px;height:16px;display:inline;vertical-align:-3px;margin-right:6px;"><use href="#icon-aero"></use></svg>Aeropress</span><span class="t2 menu__item-price">R$ 20</span></span>
                 <span class="menu__item-row menu__item-row--meta"><span class="t3 menu__item-desc">220 ml — Extração por infusão e pressão. Café equilibrado, macio e aromático.</span><span class="menu__item-plus" aria-hidden="true">+</span></span>
               </button>
             </li>
@@ -445,14 +473,14 @@
     </nav>
   </footer>
 
-  <!-- Modal do produto — estrutura visual apenas; abertura/fechamento via
-       JS ainda não implementados nesta etapa. Conteúdo de exemplo real
-       (Latte Avelí) para demonstrar a composição. -->
+  <!-- Modal do produto — funcional a partir da Etapa 4: abre ao clicar em
+       um item do cardápio, lendo nome/preço/descrição diretamente do HTML
+       do item (sem duplicar conteúdo em JS). -->
   <div class="modal" id="product-modal" hidden>
-    <div class="modal__backdrop"></div>
+    <div class="modal__backdrop" data-close="modal"></div>
     <div class="modal__sheet" role="dialog" aria-labelledby="modal-title">
       <div class="modal__handle" aria-hidden="true"></div>
-      <button class="modal__close" type="button" aria-label="Fechar">
+      <button class="modal__close" type="button" aria-label="Fechar" data-close="modal">
         <svg class="icon"><use href="#icon-close"></use></svg>
       </button>
       <div class="modal__media">
@@ -460,85 +488,67 @@
       </div>
       <div class="modal__info">
         <h2 class="h2" id="modal-title">Latte Avelí</h2>
-        <p class="t2">Espresso, leite e creme de leite condensado cozido lentamente</p>
+        <p class="t2" id="modal-desc">Espresso, leite e creme de leite condensado cozido lentamente</p>
         <div class="modal__price-row">
           <span class="t1">Preço</span>
-          <span class="t2">R$ 19</span>
+          <span class="t2" id="modal-price">R$ 19</span>
         </div>
         <div class="modal__options">
           <span class="t3">Leite</span>
-          <div class="modal__option-list">
-            <button class="btn2" type="button">Comum</button>
-            <button class="btn2" type="button">Vegetal (+5)</button>
-            <button class="btn2" type="button">Sem lactose (+5)</button>
+          <div class="modal__option-list" id="modal-milk-options">
+            <button class="btn2 is-active" type="button" data-extra="0">Comum</button>
+            <button class="btn2" type="button" data-extra="5">Vegetal (+5)</button>
+            <button class="btn2" type="button" data-extra="5">Sem lactose (+5)</button>
           </div>
         </div>
         <div class="modal__qty">
-          <button class="modal__qty-btn" type="button" aria-label="Diminuir quantidade">
+          <button class="modal__qty-btn" type="button" id="modal-qty-minus" aria-label="Diminuir quantidade">
             <svg class="icon"><use href="#icon-minus"></use></svg>
           </button>
-          <span class="t1">1</span>
-          <button class="modal__qty-btn" type="button" aria-label="Aumentar quantidade">
+          <span class="t1" id="modal-qty">1</span>
+          <button class="modal__qty-btn" type="button" id="modal-qty-plus" aria-label="Aumentar quantidade">
             <svg class="icon"><use href="#icon-plus"></use></svg>
           </button>
         </div>
-        <button class="btn modal__cta" type="button">Adicionar ao carrinho</button>
+        <button class="btn modal__cta" type="button" id="modal-add-btn">Adicionar ao carrinho</button>
       </div>
     </div>
   </div>
 
-  <!-- Painel do carrinho — estrutura visual apenas; itens abaixo são
-       conteúdo de exemplo (produtos reais do cardápio) só para revisar a
-       composição. Lógica funcional (adicionar/remover/persistir) ainda
-       não implementada nesta etapa. -->
+  <!-- Painel do carrinho — funcional a partir da Etapa 4. Os itens são
+       renderizados dinamicamente pelo assets/app.js a partir do estado do
+       pedido (em memória, válido enquanto a página estiver aberta). -->
   <div class="cart" id="cart-panel" hidden>
-    <div class="cart__backdrop"></div>
+    <div class="cart__backdrop" data-close="cart"></div>
     <div class="cart__panel" role="dialog" aria-labelledby="cart-title">
+      <button class="cart__close" type="button" aria-label="Fechar carrinho" data-close="cart">
+        <svg class="icon"><use href="#icon-close"></use></svg>
+      </button>
       <div class="cart__head">
         <h2 class="h2" id="cart-title">Seu carrinho</h2>
-        <button class="btn3" type="button">Limpar carrinho</button>
-      </div>
-      <span class="t3 cart__example-note">(exemplo ilustrativo — sem lógica funcional ainda)</span>
-
-      <div class="cart__item">
-        <div class="cart__item-row">
-          <span class="t1">Latte Avelí</span>
-          <span class="t2">R$ 19</span>
-        </div>
-        <div class="cart__item-controls">
-          <div class="cart__stepper">
-            <button class="cart__stepper-btn" type="button" aria-label="Diminuir quantidade"><svg class="icon"><use href="#icon-minus"></use></svg></button>
-            <span class="t1">1</span>
-            <button class="cart__stepper-btn" type="button" aria-label="Aumentar quantidade"><svg class="icon"><use href="#icon-plus"></use></svg></button>
-          </div>
-          <button class="btn3 cart__remove" type="button">Remover</button>
-        </div>
+        <button class="btn3" type="button" id="cart-clear-btn">Limpar carrinho</button>
       </div>
 
-      <div class="cart__item">
-        <div class="cart__item-row">
-          <span class="t1">Croissant queijo</span>
-          <span class="t2">R$ 18</span>
-        </div>
-        <div class="cart__item-controls">
-          <div class="cart__stepper">
-            <button class="cart__stepper-btn" type="button" aria-label="Diminuir quantidade"><svg class="icon"><use href="#icon-minus"></use></svg></button>
-            <span class="t1">1</span>
-            <button class="cart__stepper-btn" type="button" aria-label="Aumentar quantidade"><svg class="icon"><use href="#icon-plus"></use></svg></button>
-          </div>
-          <button class="btn3 cart__remove" type="button">Remover</button>
-        </div>
-      </div>
+      <div id="cart-items"></div>
 
       <div class="cart__total-row">
         <span class="t1">Total</span>
-        <span class="t1">R$ 37</span>
+        <span class="t1" id="cart-total">R$ 0</span>
       </div>
       <div class="cart__actions">
-        <button class="btn" type="button">Finalizar pedido</button>
+        <button class="btn" type="button" id="cart-checkout-btn" disabled>Finalizar pedido</button>
       </div>
+      <p class="t3" id="cart-checkout-note">A finalização do pedido (nome, observação e envio da mensagem) é a etapa seguinte do wireframe — ainda não implementada nesta rodada.</p>
     </div>
   </div>
 
+  <div class="floatcart" id="floatcart">
+    <button class="floatcart__btn" type="button" id="floatcart-btn">
+      <svg class="icon"><use href="#icon-cart"></use></svg>
+      <span id="floatcart-label">VER PEDIDO • 0 ITENS • R$ 0</span>
+    </button>
+  </div>
+
+  <script src="assets/app.js" defer></script>
 </body>
 </html>

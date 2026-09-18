@@ -8,6 +8,13 @@
 
 html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 html,
@@ -93,6 +100,24 @@ ul {
   --space-9: 96px;
 
   --touch-target: 44px;
+  --header-height: 60px;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --header-height: 72px;
+  }
+}
+
+#hero,
+#brand,
+#menu,
+#about,
+#location,
+#instagram,
+.menu__category,
+.menu__subcategory {
+  scroll-margin-top: var(--header-height);
 }
 
 @media (min-width: 900px) {
@@ -193,6 +218,11 @@ body {
   border: 1px solid var(--color-primary);
 }
 
+.btn2.is-active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
 .btn3 {
   background: transparent;
   color: var(--color-text-muted);
@@ -205,6 +235,15 @@ body {
 .btn2:hover,
 .btn3:hover {
   opacity: 0.8;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#cart-checkout-note {
+  margin-top: var(--space-2);
 }
 
 .lnk {
@@ -432,10 +471,19 @@ body {
   white-space: nowrap;
 }
 
+.catnav .lnk {
+  border-bottom: 2px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.catnav .lnk:hover {
+  color: var(--color-primary);
+}
+
 .catnav .lnk.is-active {
   color: var(--color-primary);
   font-weight: 700;
-  border-bottom: 2px solid var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
 @media (min-width: 900px) {
@@ -489,6 +537,12 @@ body {
   text-align: left;
   padding-block: var(--space-3);
   min-height: var(--touch-target);
+  transition: background-color 150ms ease;
+}
+
+.menu__item-btn:hover,
+.menu__item-btn:focus-visible {
+  background-color: color-mix(in srgb, var(--color-primary) 6%, transparent);
 }
 
 .menu__list > li + li .menu__item-btn {
@@ -751,13 +805,28 @@ body {
 }
 
 .cart__stepper-btn {
-  width: 32px;
-  height: 32px;
+  width: var(--touch-target);
+  height: var(--touch-target);
   border: 1px solid var(--color-primary);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.cart__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  width: var(--touch-target);
+  height: var(--touch-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart__empty {
+  padding-block: var(--space-5);
 }
 
 .cart__remove {
@@ -788,6 +857,44 @@ body {
     max-height: none;
     width: 380px;
     border-radius: 0;
+  }
+}
+
+/* ---------- Barra flutuante do pedido (mobile) ---------- */
+
+.floatcart {
+  position: fixed;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 90;
+  display: none;
+}
+
+.floatcart.is-visible {
+  display: block;
+}
+
+.floatcart__btn {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: var(--space-3) var(--space-5);
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+@media (min-width: 900px) {
+  .floatcart {
+    display: none !important;
   }
 }
 
