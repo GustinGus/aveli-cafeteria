@@ -8,6 +8,8 @@
   var cart = []; // { name, milk, unitPrice, qty }
 
   var modal = document.getElementById('product-modal');
+  var modalSheet = document.querySelector('.modal__sheet');
+  var modalCloseBtn = document.querySelector('.modal__close');
   var modalTitle = document.getElementById('modal-title');
   var modalDesc = document.getElementById('modal-desc');
   var modalPrice = document.getElementById('modal-price');
@@ -16,12 +18,16 @@
   var modalAddBtn = document.getElementById('modal-add-btn');
   var modalKicker = document.getElementById('modal-kicker');
   var modalMeta = document.getElementById('modal-meta');
+  var modalTrigger = null; // elemento que abriu o modal — recebe o foco de volta ao fechar
 
   var cartPanel = document.getElementById('cart-panel');
+  var cartPanelEl = document.querySelector('.cart__panel');
+  var cartCloseBtn = document.querySelector('.cart__close');
   var cartItemsEl = document.getElementById('cart-items');
   var cartTotalEl = document.getElementById('cart-total');
   var cartBadge = document.getElementById('cart-badge');
   var cartCheckoutBtn = document.getElementById('cart-checkout-btn');
+  var cartTrigger = null; // elemento que abriu o carrinho — recebe o foco de volta ao fechar
 
   var floatcart = document.getElementById('floatcart');
   var floatcartLabel = document.getElementById('floatcart-label');
@@ -90,6 +96,7 @@
   }
 
   function openModal(itemBtn) {
+    modalTrigger = itemBtn;
     var nameEl = itemBtn.querySelector('.menu__item-name');
     var priceEl = itemBtn.querySelector('.menu__item-price');
     var descEl = itemBtn.querySelector('.menu__item-desc');
@@ -123,12 +130,41 @@
 
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
+    modalCloseBtn.focus();
   }
 
   function closeModal() {
     modal.hidden = true;
     document.body.style.overflow = '';
+    if (modalTrigger) {
+      modalTrigger.focus();
+      modalTrigger = null;
+    }
   }
+
+  // Prende o foco dentro do modal enquanto aberto (mesmo padrão do
+  // checkout): Tab no último elemento volta ao primeiro, Shift+Tab no
+  // primeiro vai ao último — sem isso o Tab escapava para o cardápio
+  // por trás do overlay.
+  modalSheet.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var focusable = modalSheet.querySelectorAll(
+      'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    focusable = Array.prototype.filter.call(focusable, function (el) {
+      return el.offsetParent !== null;
+    });
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 
   function updateModalPrice() {
     if (!currentProduct) return;
@@ -181,7 +217,11 @@
     }
     renderCart();
     closeModal();
-    openCart();
+    // O modal já fechou (e devolveu o foco ao produto de origem); o
+    // carrinho abre em seguida sem um "gatilho" de clique literal, então
+    // usamos o ícone do carrinho no header como alvo equivalente para o
+    // foco retornar ao fechar — mesmo raciocínio do checkout.
+    openCart(document.getElementById('header-cart-btn'));
   });
 
   // ---------- Carrinho ----------
@@ -251,7 +291,17 @@
     cartBadge.textContent = String(itemCount);
     floatcartLabel.textContent = 'VER PEDIDO • ' + itemCount + (itemCount === 1 ? ' ITEM' : ' ITENS') + ' • ' + formatBRL(total);
     floatcart.classList.toggle('is-visible', itemCount > 0);
+    document.documentElement.classList.toggle('has-floatcart', itemCount > 0);
     cartCheckoutBtn.disabled = cart.length === 0;
+
+    // Os botões +/-/Remover ficam dentro de #cart-items, que acabou de
+    // ser recriado — se um deles tinha o foco (o clique que originou este
+    // render), o elemento antigo foi removido e o foco caiu para <body>,
+    // abrindo uma brecha no focus trap. Devolve o foco para dentro do
+    // painel quando isso acontece.
+    if (!cartPanel.hidden && !cartPanelEl.contains(document.activeElement)) {
+      cartCloseBtn.focus();
+    }
   }
 
   document.getElementById('cart-clear-btn').addEventListener('click', function () {
@@ -262,18 +312,49 @@
     }
   });
 
-  function openCart() {
+  function openCart(trigger) {
+    cartTrigger = trigger || document.activeElement;
     cartPanel.hidden = false;
     document.body.style.overflow = 'hidden';
+    cartCloseBtn.focus();
   }
 
   function closeCart() {
     cartPanel.hidden = true;
     document.body.style.overflow = '';
+    if (cartTrigger) {
+      cartTrigger.focus();
+      cartTrigger = null;
+    }
   }
 
-  document.getElementById('header-cart-btn').addEventListener('click', openCart);
-  document.getElementById('floatcart-btn').addEventListener('click', openCart);
+  // Mesmo focus trap do modal/checkout, aplicado ao carrinho — a lista de
+  // elementos focáveis é recalculada a cada Tab porque o conteúdo do
+  // carrinho muda dinamicamente (itens adicionados/removidos).
+  cartPanelEl.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var focusable = cartPanelEl.querySelectorAll('button:not([disabled])');
+    focusable = Array.prototype.filter.call(focusable, function (el) {
+      return el.offsetParent !== null;
+    });
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  document.getElementById('header-cart-btn').addEventListener('click', function () {
+    openCart(this);
+  });
+  document.getElementById('floatcart-btn').addEventListener('click', function () {
+    openCart(this);
+  });
 
   document.querySelectorAll('[data-close="modal"]').forEach(function (el) {
     el.addEventListener('click', closeModal);

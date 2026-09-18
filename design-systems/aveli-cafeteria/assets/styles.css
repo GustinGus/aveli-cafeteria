@@ -104,6 +104,11 @@ ul {
 
   --touch-target: 44px;
   --header-height: 69px;
+
+  /* Espaço reservado no fim da página quando a barra flutuante do
+     pedido está visível — bottom offset (--space-4) + altura real da
+     barra (--touch-target) + respiro (--space-3). */
+  --floatcart-clearance: calc(var(--space-4) + var(--touch-target) + var(--space-3));
 }
 
 @media (min-width: 900px) {
@@ -288,29 +293,6 @@ body {
   padding: var(--space-2);
 }
 
-.asset-placeholder--symbol-sm {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-.asset-placeholder--symbol-lg {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  margin-inline: auto;
-}
-
-.asset-placeholder--photo {
-  aspect-ratio: 4 / 3;
-  width: 100%;
-}
-
-.asset-placeholder--map {
-  aspect-ratio: 16 / 9;
-  width: 100%;
-}
-
 .asset-placeholder--post {
   aspect-ratio: 1 / 1;
   width: 100%;
@@ -404,12 +386,13 @@ body {
 /* ---------- Hero ---------- */
 
 .hero {
-  padding: var(--space-8) var(--space-4) var(--space-7);
+  padding: var(--space-9) var(--space-4);
   text-align: center;
 }
 
-.hero__symbol {
-  margin-bottom: var(--space-4);
+.hero__content {
+  max-width: 36rem;
+  margin-inline: auto;
 }
 
 .hero__title {
@@ -433,25 +416,7 @@ body {
 
 @media (min-width: 900px) {
   .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: var(--space-8);
     padding: var(--space-9) var(--space-7);
-    text-align: left;
-  }
-
-  .hero__content {
-    order: 1;
-  }
-
-  .hero__symbol {
-    order: 2;
-    margin-bottom: 0;
-  }
-
-  .hero__tagline {
-    margin-inline: 0;
   }
 }
 
@@ -960,6 +925,23 @@ body {
 @media (min-width: 900px) {
   .floatcart {
     display: none !important;
+  }
+}
+
+/* Reserva espaço no fim da página do tamanho real da barra flutuante
+   (--floatcart-clearance) sempre que ela estiver visível, para que
+   nenhum conteúdo (ex.: "Como chegar", links do footer) fique
+   escondido atrás dela. A classe é alternada em JS junto com
+   floatcart.is-visible e some completamente quando o carrinho está
+   vazio, sem deixar espaço em branco sobrando. Restrita a <900px:
+   a barra não existe no desktop. */
+@media (max-width: 899.98px) {
+  html.has-floatcart {
+    scroll-padding-bottom: var(--floatcart-clearance);
+  }
+
+  html.has-floatcart body {
+    padding-bottom: var(--floatcart-clearance);
   }
 }
 
@@ -1521,8 +1503,10 @@ body {
 }
 
 .instagram__handle {
-  display: inline-block;
-  margin-top: var(--space-1);
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target);
+  margin-top: calc(var(--space-1) - var(--space-3));
 }
 
 .instagram__handle:hover {

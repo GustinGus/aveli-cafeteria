@@ -96,11 +96,6 @@
   <main>
 
     <section class="hero" id="hero">
-      <div class="hero__symbol">
-        <div class="asset-placeholder asset-placeholder--symbol-lg" role="img" aria-label="Símbolo floral oficial Avelí (asset pendente — substituir pelo arquivo oficial)">
-          Logo oficial<br>Avelí<br>(pendente)
-        </div>
-      </div>
       <div class="hero__content">
         <h1 class="h1 hero__title">Avelí</h1>
         <span class="hero__subtitle">Cafeteria</span>
@@ -576,7 +571,7 @@
        do item (sem duplicar conteúdo em JS). -->
   <div class="modal" id="product-modal" hidden>
     <div class="modal__backdrop" data-close="modal"></div>
-    <div class="modal__sheet" role="dialog" aria-labelledby="modal-title">
+    <div class="modal__sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="modal__handle" aria-hidden="true"></div>
       <button class="modal__close" type="button" aria-label="Fechar" data-close="modal">
         <svg class="icon"><use href="#icon-close"></use></svg>
@@ -626,7 +621,7 @@
        pedido (em memória, válido enquanto a página estiver aberta). -->
   <div class="cart" id="cart-panel" hidden>
     <div class="cart__backdrop" data-close="cart"></div>
-    <div class="cart__panel" role="dialog" aria-labelledby="cart-title">
+    <div class="cart__panel" role="dialog" aria-modal="true" aria-labelledby="cart-title">
       <div class="cart__head">
         <h2 class="h2" id="cart-title">Seu carrinho</h2>
         <div class="cart__head-actions">
@@ -654,7 +649,7 @@
        nada é duplicado aqui. Envio real via WhatsApp (wa.me), sem backend. -->
   <div class="checkout" id="checkout-panel" hidden>
     <div class="checkout__backdrop" data-close="checkout"></div>
-    <div class="checkout__panel" role="dialog" aria-labelledby="checkout-title">
+    <div class="checkout__panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
       <div class="checkout__handle" aria-hidden="true"></div>
       <button class="checkout__close" type="button" aria-label="Fechar" data-close="checkout">
         <svg class="icon"><use href="#icon-close"></use></svg>
@@ -714,7 +709,7 @@
 
   <div class="sitenav" id="sitenav-panel" hidden>
     <div class="sitenav__backdrop" data-close="sitenav"></div>
-    <div class="sitenav__panel" role="dialog" aria-labelledby="sitenav-title">
+    <div class="sitenav__panel" role="dialog" aria-modal="true" aria-labelledby="sitenav-title">
       <div class="sitenav__handle" aria-hidden="true"></div>
       <button class="sitenav__close" type="button" aria-label="Fechar menu" data-close="sitenav">
         <svg class="icon"><use href="#icon-close"></use></svg>
