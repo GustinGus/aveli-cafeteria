@@ -947,6 +947,155 @@ body {
   }
 }
 
+/* ---------- Um pouco da Avelí (galeria) ---------- */
+
+.place {
+  padding: var(--space-8) 0 var(--space-7);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.place__carousel {
+  display: flex;
+  flex-direction: column;
+}
+
+.place__intro {
+  padding-inline: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.place__intro .t2 {
+  max-width: 40ch;
+  margin-top: var(--space-2);
+}
+
+.place__viewport {
+  overflow: hidden;
+}
+
+.place__track {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--space-4);
+  padding-inline: var(--space-4);
+  padding-bottom: var(--space-2);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.place__track::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .place__track {
+    cursor: grab;
+    touch-action: pan-y;
+  }
+
+  .place__track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+}
+
+.place__slide {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  height: clamp(360px, 58vh, 520px);
+  margin: 0;
+  border-radius: var(--space-2);
+  overflow: hidden;
+  background: var(--color-hairline);
+}
+
+.place__img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+.place__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.place__arrow {
+  display: none;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
+  color: var(--color-primary);
+}
+
+.place__counter {
+  letter-spacing: 0.08em;
+  min-width: 5.5ch;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (min-width: 900px) {
+  .place {
+    padding: var(--space-9) 0;
+  }
+
+  .place__carousel {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-7);
+    padding-inline: var(--space-7);
+  }
+
+  .place__intro {
+    flex: 0 0 280px;
+    padding-inline: 0;
+    padding-top: var(--space-5);
+    margin-bottom: 0;
+  }
+
+  .place__viewport {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .place__track {
+    padding-inline: 0;
+    gap: var(--space-5);
+  }
+
+  .place__slide {
+    height: clamp(420px, 52vh, 600px);
+  }
+
+  .place__slide:first-child {
+    height: clamp(520px, 68vh, 720px);
+  }
+
+  .place__controls {
+    justify-content: flex-start;
+    margin-top: var(--space-5);
+  }
+
+  .place__arrow {
+    display: inline-flex;
+  }
+
+  .place__arrow:hover {
+    background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  }
+}
+
 /* ---------- Sobre / Onde estamos / Instagram ---------- */
 
 .about,

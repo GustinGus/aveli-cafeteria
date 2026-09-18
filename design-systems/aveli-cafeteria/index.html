@@ -59,6 +59,12 @@
       <rect x="8" y="9" width="8" height="11" rx="1" />
       <path d="M12 3v6M9 4h6" />
     </symbol>
+    <symbol id="icon-chevron-left" viewBox="0 0 24 24">
+      <path d="M15 5l-7 7 7 7" />
+    </symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+      <path d="M9 5l7 7-7 7" />
+    </symbol>
   </svg>
 
   <header class="header">
@@ -429,6 +435,58 @@
           </ul>
         </div>
 
+      </div>
+    </section>
+
+    <section class="place" id="place" aria-label="Um pouco da Avelí">
+      <div class="place__carousel">
+        <div class="place__intro">
+          <h2 class="h1">Um pouco da Avelí</h2>
+          <p class="t2">Um convite para conhecer o espaço que dá vida ao nosso café.</p>
+        </div>
+        <div class="place__viewport">
+          <div class="place__track" id="place-track" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Fotografias da Avelí Cafeteria">
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-1.webp" width="1048" height="1258" alt="Fachada da Avelí Cafeteria ao entardecer, com o letreiro da marca sobre ripado de madeira e a porta de vidro aberta" loading="eager" decoding="async" fetchpriority="high">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-2.webp" width="1054" height="1249" alt="Área de estar próxima à entrada, com poltronas e sofá aconchegantes, luminárias de rattan e vista para a rua" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-4.webp" width="792" height="1266" alt="Salão de mesas da Avelí, com arcos brancos e o letreiro &quot;Café&quot; ao fundo" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-5.webp" width="786" height="1264" alt="Outro ângulo do salão de mesas, com luminárias suspensas sobre os assentos" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-3.webp" width="787" height="1260" alt="Balcão de preparo à noite, com nicho arqueado iluminado e os equipamentos de café em destaque" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-8.webp" width="792" height="1251" alt="Croissant recheado com presunto, tomate e rúcula sobre um prato" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-6.webp" width="1047" height="1255" alt="Waffle e cappuccino servidos à mesa, ao lado do porta-talheres de couro da Avelí" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-7.webp" width="1045" height="1257" alt="Bebida de chocolate em camadas sobre a mesa, com o jardim desfocado ao fundo" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-10.webp" width="1054" height="1267" alt="Cappuccino e brownie servidos à mesa, com a capa de talheres da Avelí" loading="lazy" decoding="async">
+            </figure>
+            <figure class="place__slide">
+              <img class="place__img" src="assets/images/place/optimized/aveli-9.webp" width="1045" height="1264" alt="Café coado e fatia de cheesecake ao lado da capa de talheres com o símbolo da Avelí" loading="lazy" decoding="async">
+            </figure>
+          </div>
+        </div>
+        <div class="place__controls">
+          <button class="place__arrow" type="button" id="place-prev" aria-label="Fotografia anterior">
+            <svg class="icon"><use href="#icon-chevron-left"></use></svg>
+          </button>
+          <span class="t3 place__counter" id="place-counter" aria-live="polite">01 / 10</span>
+          <button class="place__arrow" type="button" id="place-next" aria-label="Próxima fotografia">
+            <svg class="icon"><use href="#icon-chevron-right"></use></svg>
+          </button>
+        </div>
       </div>
     </section>
 

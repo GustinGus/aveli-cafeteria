@@ -301,5 +301,169 @@
     });
   }
 
+  // ---------- Carrossel "Um pouco da Avelí" ----------
+
+  (function () {
+    var track = document.getElementById('place-track');
+    if (!track) return;
+
+    var slides = Array.prototype.slice.call(track.querySelectorAll('.place__slide'));
+    var counter = document.getElementById('place-counter');
+    var prevBtn = document.getElementById('place-prev');
+    var nextBtn = document.getElementById('place-next');
+    var total = slides.length;
+    var current = 0;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function pad2(n) {
+      return n < 10 ? '0' + n : String(n);
+    }
+
+    function updateCounter(index) {
+      counter.textContent = pad2(index + 1) + ' / ' + pad2(total);
+    }
+
+    function goTo(index) {
+      index = Math.max(0, Math.min(total - 1, index));
+      slides[index].scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        inline: 'start',
+        block: 'nearest'
+      });
+    }
+
+    prevBtn.addEventListener('click', function () {
+      goTo(current - 1);
+    });
+    nextBtn.addEventListener('click', function () {
+      goTo(current + 1);
+    });
+
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goTo(current + 1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goTo(current - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goTo(total - 1);
+      }
+    });
+
+    // Detecta a foto atualmente em destaque (swipe manual, drag ou botões)
+    // pela posição de scroll, não pela área de interseção — o slide 1
+    // (herói, mais alto no desktop) tem uma proporção de área visível
+    // diferente dos demais, o que tornava a detecção por
+    // IntersectionObserver (threshold de área) incorreta assim que a
+    // altura dos slides deixa de ser uniforme.
+    var ticking = false;
+
+    function updateCurrentFromScroll() {
+      var closestIndex;
+      var maxScroll = track.scrollWidth - track.clientWidth;
+
+      // A última foto nem sempre consegue alinhar a própria borda esquerda
+      // com a borda da viewport (não sobra scroll suficiente) — nesse caso
+      // o scroll bate no máximo antes do "encaixe" visual, e a comparação
+      // por borda mais próxima erra para o penúltimo slide. Tratado à parte.
+      if (maxScroll <= 0 || track.scrollLeft >= maxScroll - 1) {
+        closestIndex = total - 1;
+      } else {
+        var trackLeft = track.getBoundingClientRect().left;
+        var closestDist = Infinity;
+        closestIndex = 0;
+        slides.forEach(function (slide, i) {
+          var dist = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestIndex = i;
+          }
+        });
+      }
+
+      if (closestIndex !== current) {
+        current = closestIndex;
+        updateCounter(current);
+      }
+      ticking = false;
+    }
+
+    track.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateCurrentFromScroll);
+    });
+
+    // Arrastar com o ponteiro (mouse) no desktop — overflow-x nativo já
+    // cobre touch/trackpad, mas não responde a clique-e-arraste do mouse.
+    var isDragging = false;
+    var dragStartX = 0;
+    var dragStartScroll = 0;
+    var dragMoved = false;
+
+    track.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'touch') return; // touch já tem scroll nativo
+      isDragging = true;
+      dragMoved = false;
+      dragStartX = e.clientX;
+      dragStartScroll = track.scrollLeft;
+      track.classList.add('is-dragging');
+      track.setPointerCapture(e.pointerId);
+    });
+
+    track.addEventListener('pointermove', function (e) {
+      if (!isDragging) return;
+      var delta = e.clientX - dragStartX;
+      if (Math.abs(delta) > 3) dragMoved = true;
+      track.scrollLeft = dragStartScroll - delta;
+    });
+
+    function endDrag(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      try {
+        track.releasePointerCapture(e.pointerId);
+      } catch (err) {
+        /* no-op */
+      }
+      // Depois de soltar, encaixa no slide mais próximo (scroll-snap não
+      // é acionado durante scrollLeft manual via drag).
+      var nearestIndex = current;
+      var trackLeft = track.getBoundingClientRect().left;
+      var closestDist = Infinity;
+      slides.forEach(function (slide, i) {
+        var dist = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+        if (dist < closestDist) {
+          closestDist = dist;
+          nearestIndex = i;
+        }
+      });
+      goTo(nearestIndex);
+    }
+
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+
+    // Evita que a foto seja "arrastada" como imagem (ghost drag nativo)
+    // e que um drag vire clique acidental na figura.
+    track.addEventListener('dragstart', function (e) {
+      e.preventDefault();
+    });
+    track.addEventListener('click', function (e) {
+      if (dragMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    updateCurrentFromScroll();
+  })();
+
   renderCart();
 })();
