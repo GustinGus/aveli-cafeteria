@@ -14,8 +14,8 @@
   var modalQty = document.getElementById('modal-qty');
   var modalMilkOptions = document.getElementById('modal-milk-options');
   var modalAddBtn = document.getElementById('modal-add-btn');
-  var modalPhoto = document.getElementById('modal-photo');
-  var modalPhotoFallback = document.getElementById('modal-photo-fallback');
+  var modalKicker = document.getElementById('modal-kicker');
+  var modalMeta = document.getElementById('modal-meta');
 
   var cartPanel = document.getElementById('cart-panel');
   var cartItemsEl = document.getElementById('cart-items');
@@ -41,21 +41,55 @@
 
   // ---------- Modal do produto ----------
 
+  // Volume/subtítulo curto (ex. "30 ml") é uma variação tipográfica do
+  // mesmo campo de descrição do cardápio — não um dado novo/duplicado.
+  // "300 ml — texto" vira meta="300 ml" + desc="texto"; "30 ml" sozinho
+  // vira só meta, sem linha de descrição.
+  function splitMeta(desc) {
+    var withDash = desc.match(/^(\d+\s*ml)\s*[—-]\s*(.+)$/i);
+    if (withDash) {
+      return { meta: withDash[1], desc: withDash[2] };
+    }
+    if (/^\d+\s*ml$/i.test(desc)) {
+      return { meta: desc, desc: '' };
+    }
+    return { meta: '', desc: desc };
+  }
+
+  // Categoria/subcategoria vêm da hierarquia do próprio HTML do cardápio
+  // (a mesma fonte de verdade), não de um dado duplicado em JS.
+  function categoryKicker(itemBtn) {
+    var subEl = itemBtn.closest('.menu__subcategory');
+    var catEl = itemBtn.closest('.menu__category');
+    var catTitle = catEl ? catEl.querySelector('.h2') : null;
+    var subTitle = subEl ? subEl.querySelector('.h3') : null;
+    var parts = [];
+    if (catTitle) parts.push(catTitle.textContent.trim());
+    if (subTitle) parts.push(subTitle.textContent.trim());
+    return parts.join(' · ');
+  }
+
   function openModal(itemBtn) {
     var nameEl = itemBtn.querySelector('.menu__item-name');
     var priceEl = itemBtn.querySelector('.menu__item-price');
     var descEl = itemBtn.querySelector('.menu__item-desc');
+    var rawDesc = (descEl && descEl.textContent.trim()) || '';
+    var split = splitMeta(rawDesc);
 
     currentProduct = {
       name: (nameEl && nameEl.textContent.trim()) || 'Produto',
       price: priceEl ? parsePrice(priceEl.textContent) : 0,
-      desc: (descEl && descEl.textContent.trim()) || ''
+      meta: split.meta,
+      desc: split.desc
     };
     currentQty = 1;
     currentExtra = 0;
     currentMilkLabel = 'Comum';
 
+    modalKicker.textContent = categoryKicker(itemBtn);
     modalTitle.textContent = currentProduct.name;
+    modalMeta.textContent = currentProduct.meta;
+    modalMeta.hidden = !currentProduct.meta;
     modalDesc.textContent = currentProduct.desc;
     modalDesc.hidden = !currentProduct.desc;
     modalQty.textContent = String(currentQty);
@@ -66,36 +100,9 @@
     });
 
     updateModalPrice();
-    loadProductPhoto(itemBtn.getAttribute('data-image'));
 
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
-  }
-
-  // Tenta carregar a foto oficial do produto; se o arquivo ainda não
-  // existir (404) ou não houver path, mostra o fallback elegante sem
-  // nunca deixar um ícone de imagem quebrada aparecer.
-  function loadProductPhoto(path) {
-    modalPhoto.hidden = true;
-    modalPhotoFallback.hidden = false;
-    modalPhoto.onload = null;
-    modalPhoto.onerror = null;
-
-    if (!path) {
-      modalPhoto.removeAttribute('src');
-      return;
-    }
-
-    modalPhoto.onload = function () {
-      modalPhoto.hidden = false;
-      modalPhotoFallback.hidden = true;
-    };
-    modalPhoto.onerror = function () {
-      modalPhoto.hidden = true;
-      modalPhotoFallback.hidden = false;
-    };
-    modalPhoto.alt = currentProduct ? currentProduct.name : '';
-    modalPhoto.src = path;
   }
 
   function closeModal() {

@@ -304,39 +304,6 @@ body {
   width: 100%;
 }
 
-/* Fallback elegante para foto de produto ausente — deliberadamente
-   diferente do .asset-placeholder (que é um marcador de "em obras" para
-   assets de marca/site). Este aparece para o cliente final quando uma
-   foto de produto ainda não foi enviada, então não pode parecer quebrado. */
-.product-photo-fallback {
-  aspect-ratio: 4 / 3;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-background));
-  border-radius: var(--space-2);
-}
-
-.product-photo-fallback__icon {
-  width: 28px;
-  height: 28px;
-  color: var(--color-placeholder-text);
-}
-
-.modal__photo {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--space-2);
-}
-
-.modal__photo[hidden] {
-  display: none;
-}
-
 .asset-placeholder--map {
   aspect-ratio: 16 / 9;
   width: 100%;
@@ -699,15 +666,51 @@ body {
   font-size: 1.25rem;
 }
 
-.modal__media {
-  margin-bottom: var(--space-4);
+.modal__ornament {
+  width: 40px;
+  height: 8px;
+  stroke: var(--color-frame);
+  fill: none;
+  stroke-width: 1;
+  margin-bottom: var(--space-3);
+}
+
+.modal__kicker {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: var(--space-2);
+}
+
+.modal__name {
+  margin-bottom: var(--space-2);
+}
+
+.modal__meta {
+  margin-bottom: var(--space-3);
+}
+
+.modal__meta[hidden] {
+  display: none;
+}
+
+.modal__desc {
+  margin-bottom: var(--space-5);
 }
 
 .modal__price-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin: var(--space-3) 0 var(--space-4);
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.modal__price {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  color: var(--color-primary);
 }
 
 .modal__options {
@@ -755,18 +758,22 @@ body {
     width: min(720px, calc(100vw - var(--space-8)));
     max-height: 80vh;
     border-radius: var(--space-4);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
-    padding: var(--space-6);
+    padding: var(--space-7);
   }
 
   .modal__handle {
     display: none;
   }
 
-  .modal__media {
-    margin-bottom: 0;
+  .modal__info {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-7);
+    align-items: start;
+  }
+
+  .modal__right {
+    padding-top: calc(var(--space-2) + 40px);
   }
 }
 
