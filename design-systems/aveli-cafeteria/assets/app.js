@@ -627,6 +627,13 @@
       modeError.hidden = true;
     });
 
+    // Formatação de moeda só para a mensagem do WhatsApp (padrão brasileiro
+    // com centavos). Não altera formatBRL nem o valor numérico em si —
+    // apenas como o mesmo número já calculado é apresentado como texto.
+    function formatBRLDecimal(n) {
+      return 'R$ ' + n.toFixed(2).replace('.', ',');
+    }
+
     // Texto puro em toda a mensagem — nome/telefone/observação nunca são
     // interpretados como HTML, só concatenados como string e depois
     // codificados via encodeURIComponent para a URL do WhatsApp.
@@ -643,10 +650,10 @@
       parts.push('*PEDIDO*');
       lines.forEach(function (line) {
         var label = line.qty + 'x ' + line.name + (line.milk !== 'Comum' ? ' (' + line.milk + ')' : '');
-        parts.push(label + ' — ' + formatBRL(line.subtotal));
+        parts.push(label + ' — ' + formatBRLDecimal(line.subtotal));
       });
       parts.push('');
-      parts.push('*Total: ' + formatBRL(total) + '*');
+      parts.push('*Total: ' + formatBRLDecimal(total) + '*');
       parts.push('');
       parts.push('*Cliente:* ' + name);
       if (phone) {
