@@ -510,19 +510,35 @@
 
         <div class="location__field">
           <span class="t3 location__label">Endereço</span>
-          <p class="t2">Pendente — aguardando confirmação oficial.</p>
+          <p class="t2 location__address">
+            R. Benedito Storani, 876<br>
+            Parque Res. Eloy Chaves<br>
+            Jundiaí - SP, 13212-100
+          </p>
         </div>
 
         <div class="location__field">
           <span class="t3 location__label">Horário de funcionamento</span>
-          <p class="t2">Pendente — aguardando confirmação oficial.</p>
+          <ul class="location__hours">
+            <li><span>Segunda</span><span class="location__hours-value">Fechado</span></li>
+            <li><span>Terça</span><span class="location__hours-value">Fechado</span></li>
+            <li><span>Quarta</span><span class="location__hours-value">09:00–18:00</span></li>
+            <li><span>Quinta</span><span class="location__hours-value">09:00–18:00</span></li>
+            <li><span>Sexta</span><span class="location__hours-value">09:00–18:00</span></li>
+            <li><span>Sábado</span><span class="location__hours-value">09:00–18:00</span></li>
+            <li><span>Domingo</span><span class="location__hours-value">08:00–14:00</span></li>
+          </ul>
         </div>
-
-        <button class="btn2 location__cta" type="button" disabled>Como chegar</button>
-        <p class="t3 location__note">O botão será ativado assim que o endereço oficial da Avelí for informado.</p>
       </div>
-      <div class="asset-placeholder asset-placeholder--map" role="img" aria-label="Mapa da localização (aguardando endereço oficial)">
-        Mapa<br>pendente
+      <div class="location__map">
+        <svg class="modal__ornament" viewBox="0 0 40 8" aria-hidden="true">
+          <line x1="0" y1="4" x2="14" y2="4" />
+          <circle cx="20" cy="4" r="3" />
+          <line x1="26" y1="4" x2="40" y2="4" />
+        </svg>
+        <span class="t3 location__map-region">Jundiaí — SP</span>
+        <span class="t2 location__map-neighborhood">Parque Residencial Eloy Chaves</span>
+        <a class="btn2 location__cta" href="https://www.google.com/maps/place/Avel%C3%AD/@-23.1870623,-46.9606779,15z/data=!4m17!1m10!3m9!1s0x94cf25e3dee0b517:0x9957ec3c066cd0e0!2zQXZlbMOt!8m2!3d-23.1869295!4d-46.9606634!10e5!14m1!1BCgIgAQ!16s%2Fg%2F11ntfs9lhc!3m5!1s0x94cf25e3dee0b517:0x9957ec3c066cd0e0!8m2!3d-23.1869295!4d-46.9606634!16s%2Fg%2F11ntfs9lhc?entry=ttu&amp;g_ep=EgoyMDI2MDkxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Como chegar</a>
       </div>
     </section>
 

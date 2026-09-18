@@ -1449,24 +1449,75 @@ body {
 }
 
 .location__field {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
 }
 
 .location__label {
   display: block;
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.location__cta {
-  margin-top: var(--space-5);
+.location__address {
+  line-height: 1.6;
 }
 
-.location__note {
-  margin-top: var(--space-2);
+.location__hours {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.location__hours li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.location__hours li:first-child {
+  border-top: none;
+}
+
+.location__hours-value {
   color: var(--color-text-muted);
+}
+
+.location__map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+  padding: var(--space-7) var(--space-5);
+  margin-top: var(--space-6);
+  border: 1px solid var(--color-hairline);
+  background: color-mix(in srgb, var(--color-primary) 5%, var(--color-background));
+}
+
+.location__map .modal__ornament {
+  margin-bottom: var(--space-2);
+}
+
+.location__map-region {
+  display: block;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.location__map-neighborhood {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+}
+
+.location__map .location__cta {
+  margin-top: var(--space-3);
 }
 
 .instagram__handle {
@@ -1498,6 +1549,11 @@ body {
     align-items: center;
     max-width: 1100px;
     margin: 0 auto;
+  }
+
+  .location__map {
+    margin-top: 0;
+    aspect-ratio: 4 / 3;
   }
 
   .instagram {
