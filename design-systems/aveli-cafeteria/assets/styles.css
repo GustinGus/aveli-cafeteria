@@ -1556,10 +1556,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-5);
   padding: var(--space-7) var(--space-4);
   border-top: 1px solid var(--color-hairline);
   text-align: center;
+}
+
+.footer__row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
 }
 
 .footer__brand {
@@ -1579,14 +1587,37 @@ body {
   gap: var(--space-2) var(--space-4);
 }
 
+/* Crédito de desenvolvimento — discreto, abaixo do conteúdo principal
+   do footer, com opacidade visual reduzida (via mistura com o fundo,
+   mesma técnica de --color-text-muted) para não competir com a marca. */
+.footer__credit {
+  width: 100%;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-hairline);
+  font-size: var(--text-micro);
+  color: color-mix(in srgb, var(--color-primary) 65%, var(--color-background));
+}
+
+.footer__credit-name {
+  color: color-mix(in srgb, var(--color-primary) 80%, var(--color-background));
+  white-space: nowrap;
+}
+
 @media (min-width: 900px) {
   .footer {
+    padding: var(--space-6) var(--space-7);
+  }
+
+  .footer__row {
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--space-6) var(--space-7);
   }
 
   .footer__nav {
     flex-wrap: nowrap;
+  }
+
+  .footer__credit {
+    white-space: nowrap;
   }
 }
