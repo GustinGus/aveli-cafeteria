@@ -103,18 +103,19 @@ ul {
   --space-9: 96px;
 
   --touch-target: 44px;
-  --header-height: 60px;
+  --header-height: 69px;
 }
 
 @media (min-width: 900px) {
   :root {
-    --header-height: 72px;
+    --header-height: 77px;
   }
 }
 
 #hero,
 #brand,
 #menu,
+#place,
 #about,
 #location,
 #instagram,
@@ -240,7 +241,8 @@ body {
   opacity: 0.8;
 }
 
-.btn:disabled {
+.btn:disabled,
+.btn2:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -327,6 +329,20 @@ body {
   padding: var(--space-3) var(--space-4);
   background: var(--color-background);
   border-bottom: 1px solid var(--color-hairline);
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header__menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
 }
 
 .header__brand {
@@ -1309,6 +1325,109 @@ body {
   }
 }
 
+/* ---------- Menu de navegação do site (seções) ---------- */
+
+.sitenav {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.sitenav[hidden] {
+  display: none;
+}
+
+.sitenav__backdrop {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.sitenav__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-background);
+  border-radius: var(--space-5) var(--space-5) 0 0;
+  padding: var(--space-3) var(--space-5) var(--space-6);
+}
+
+.sitenav__handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-hairline);
+  margin: 0 auto var(--space-3);
+}
+
+.sitenav__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  width: var(--touch-target);
+  height: var(--touch-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sitenav .modal__ornament {
+  display: block;
+  margin: var(--space-2) auto 0;
+}
+
+.sitenav__kicker {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sitenav__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sitenav__link {
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--touch-target) + 8px);
+  padding-block: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.sitenav__link:first-child {
+  border-top: none;
+}
+
+.sitenav__link:hover {
+  color: var(--color-primary);
+}
+
+@media (min-width: 900px) {
+  .sitenav__panel {
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(360px, calc(100vw - var(--space-8)));
+    border-radius: var(--space-4);
+    padding: var(--space-7);
+  }
+
+  .sitenav__handle {
+    display: none;
+  }
+}
+
 /* ---------- Sobre / Onde estamos / Instagram ---------- */
 
 .about,
@@ -1329,9 +1448,34 @@ body {
   margin-bottom: var(--space-4);
 }
 
-.instagram__handle {
+.location__field {
+  margin-top: var(--space-4);
+}
+
+.location__label {
   display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.location__cta {
+  margin-top: var(--space-5);
+}
+
+.location__note {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.instagram__handle {
+  display: inline-block;
   margin-top: var(--space-1);
+}
+
+.instagram__handle:hover {
+  color: var(--color-primary);
 }
 
 .instagram__grid {
@@ -1378,9 +1522,21 @@ body {
   text-align: center;
 }
 
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.footer__wordmark {
+  font-family: var(--font-display);
+}
+
 .footer__nav {
   display: flex;
-  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-4);
 }
 
 @media (min-width: 900px) {
@@ -1388,5 +1544,9 @@ body {
     flex-direction: row;
     justify-content: space-between;
     padding: var(--space-6) var(--space-7);
+  }
+
+  .footer__nav {
+    flex-wrap: nowrap;
   }
 }

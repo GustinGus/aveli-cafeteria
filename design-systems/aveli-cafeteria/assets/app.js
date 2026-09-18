@@ -486,6 +486,59 @@
     updateCurrentFromScroll();
   })();
 
+  // ---------- Menu de navegação do site (seções) ----------
+
+  (function () {
+    var sitenav = document.getElementById('sitenav-panel');
+    var menuBtn = document.getElementById('header-menu-btn');
+    if (!sitenav || !menuBtn) return;
+
+    var panelEl = sitenav.querySelector('.sitenav__panel');
+
+    function openSitenav() {
+      sitenav.hidden = false;
+      document.body.style.overflow = 'hidden';
+      var firstLink = panelEl.querySelector('.sitenav__link');
+      if (firstLink) firstLink.focus();
+    }
+
+    function closeSitenav() {
+      sitenav.hidden = true;
+      document.body.style.overflow = '';
+      menuBtn.focus();
+    }
+
+    menuBtn.addEventListener('click', openSitenav);
+    document.querySelectorAll('[data-close="sitenav"]').forEach(function (el) {
+      el.addEventListener('click', closeSitenav);
+    });
+    sitenav.querySelectorAll('.sitenav__link').forEach(function (link) {
+      link.addEventListener('click', closeSitenav);
+    });
+
+    panelEl.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = panelEl.querySelectorAll('button:not([disabled]), a[href]');
+      focusable = Array.prototype.filter.call(focusable, function (el) {
+        return el.offsetParent !== null;
+      });
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !sitenav.hidden) closeSitenav();
+    });
+  })();
+
   // ---------- Finalização do pedido (WhatsApp) ----------
 
   var WHATSAPP_NUMBER = '5511995865222';
