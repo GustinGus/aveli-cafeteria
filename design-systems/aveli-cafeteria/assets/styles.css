@@ -961,7 +961,7 @@ body {
 
 .place__intro {
   padding-inline: var(--space-4);
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .place__intro .t2 {
@@ -1006,7 +1006,11 @@ body {
 .place__slide {
   flex: 0 0 auto;
   scroll-snap-align: start;
-  height: clamp(360px, 58vh, 520px);
+  /* Altura calibrada para que mesmo as fotos de proporção mais larga
+     (~0,83) deixem uma fatia da próxima visível dentro da largura útil
+     do track em 390px — evita que a foto dominante preencha 100% da
+     área visível e esconda a espiada da próxima. */
+  height: clamp(300px, 44vh, 400px);
   margin: 0;
   border-radius: var(--space-2);
   overflow: hidden;
@@ -1023,8 +1027,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
-  margin-top: var(--space-4);
+  gap: var(--space-3);
+  margin-top: var(--space-3);
 }
 
 .place__arrow {
@@ -1036,6 +1040,8 @@ body {
   border: 1px solid var(--color-primary);
   border-radius: 50%;
   color: var(--color-primary);
+  flex: 0 0 auto;
+  transition: opacity 150ms ease;
 }
 
 .place__counter {
@@ -1053,46 +1059,71 @@ body {
   .place__carousel {
     flex-direction: row;
     align-items: flex-start;
-    gap: var(--space-7);
+    gap: var(--space-6);
     padding-inline: var(--space-7);
   }
 
   .place__intro {
-    flex: 0 0 280px;
+    flex: 0 0 260px;
     padding-inline: 0;
-    padding-top: var(--space-5);
+    padding-top: 0;
     margin-bottom: 0;
   }
 
   .place__viewport {
     flex: 1 1 auto;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .place__track {
     padding-inline: 0;
-    gap: var(--space-5);
+    /* Fotografia secundária propositalmente próxima da principal —
+       reforça a foto dominante em vez de espaçar tudo em igual medida. */
+    gap: var(--space-3);
   }
 
   .place__slide {
-    height: clamp(420px, 52vh, 600px);
+    /* Fotos "de apoio" ainda com presença forte, só que claramente
+       subordinadas à foto dominante (regra abaixo). */
+    height: clamp(460px, 58vh, 660px);
   }
 
   .place__slide:first-child {
-    height: clamp(520px, 68vh, 720px);
+    /* Foto dominante: ocupa a maior parte da altura disponível da
+       seção, criando a presença fotográfica que faltava. */
+    height: clamp(600px, 84vh, 860px);
+  }
+
+  .place__slide:nth-child(2) {
+    /* Pequeno desalinhamento vertical proposital — leitura mais
+       editorial do que um grid perfeitamente alinhado. */
+    margin-top: var(--space-7);
   }
 
   .place__controls {
     justify-content: flex-start;
-    margin-top: var(--space-5);
+    margin-top: var(--space-4);
   }
 
   .place__arrow {
     display: inline-flex;
+    width: 38px;
+    height: 38px;
+    border-color: var(--color-placeholder-border);
+    color: var(--color-placeholder-text);
   }
 
-  .place__arrow:hover {
+  .place__arrow:hover,
+  .place__arrow:focus-visible {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
     background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  }
+
+  .place__counter {
+    color: var(--color-text-muted);
   }
 }
 
