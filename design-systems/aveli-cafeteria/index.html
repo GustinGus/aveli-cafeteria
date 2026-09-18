@@ -521,12 +521,14 @@
   <div class="cart" id="cart-panel" hidden>
     <div class="cart__backdrop" data-close="cart"></div>
     <div class="cart__panel" role="dialog" aria-labelledby="cart-title">
-      <button class="cart__close" type="button" aria-label="Fechar carrinho" data-close="cart">
-        <svg class="icon"><use href="#icon-close"></use></svg>
-      </button>
       <div class="cart__head">
         <h2 class="h2" id="cart-title">Seu carrinho</h2>
-        <button class="btn3" type="button" id="cart-clear-btn">Limpar carrinho</button>
+        <div class="cart__head-actions">
+          <button class="btn3" type="button" id="cart-clear-btn">Limpar carrinho</button>
+          <button class="cart__close" type="button" aria-label="Fechar carrinho" data-close="cart">
+            <svg class="icon"><use href="#icon-close"></use></svg>
+          </button>
+        </div>
       </div>
 
       <div id="cart-items"></div>

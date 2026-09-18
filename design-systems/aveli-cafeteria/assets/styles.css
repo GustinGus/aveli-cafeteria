@@ -65,8 +65,11 @@ ul {
      de imagem reais em design-systems/aveli-cafeteria/reference/) */
   --color-frame: #9CA173;
 
-  /* Tom suave para texto secundário/meta — derivado do primary */
-  --color-text-muted: color-mix(in srgb, var(--color-primary) 68%, var(--color-background));
+  /* Tom suave para texto secundário/meta — derivado do primary.
+     85% garante contraste >= 4.5:1 sobre o creme (WCAG AA para texto
+     normal); a mistura original em 68% ficava em 3.38:1, abaixo do
+     mínimo — corrigido na revisão da Etapa 5. */
+  --color-text-muted: color-mix(in srgb, var(--color-primary) 85%, var(--color-background));
   --color-hairline: color-mix(in srgb, var(--color-primary) 16%, var(--color-background));
   --color-placeholder-border: color-mix(in srgb, var(--color-primary) 35%, var(--color-background));
   --color-placeholder-text: color-mix(in srgb, var(--color-primary) 55%, var(--color-background));
@@ -768,7 +771,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-3);
   margin-bottom: var(--space-1);
+}
+
+.cart__head-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
 }
 
 .cart__example-note {
@@ -815,14 +826,12 @@ body {
 }
 
 .cart__close {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-4);
   width: var(--touch-target);
   height: var(--touch-target);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
 }
 
 .cart__empty {
