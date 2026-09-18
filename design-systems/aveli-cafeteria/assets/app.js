@@ -14,6 +14,8 @@
   var modalQty = document.getElementById('modal-qty');
   var modalMilkOptions = document.getElementById('modal-milk-options');
   var modalAddBtn = document.getElementById('modal-add-btn');
+  var modalPhoto = document.getElementById('modal-photo');
+  var modalPhotoFallback = document.getElementById('modal-photo-fallback');
 
   var cartPanel = document.getElementById('cart-panel');
   var cartItemsEl = document.getElementById('cart-items');
@@ -64,9 +66,36 @@
     });
 
     updateModalPrice();
+    loadProductPhoto(itemBtn.getAttribute('data-image'));
 
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
+  }
+
+  // Tenta carregar a foto oficial do produto; se o arquivo ainda não
+  // existir (404) ou não houver path, mostra o fallback elegante sem
+  // nunca deixar um ícone de imagem quebrada aparecer.
+  function loadProductPhoto(path) {
+    modalPhoto.hidden = true;
+    modalPhotoFallback.hidden = false;
+    modalPhoto.onload = null;
+    modalPhoto.onerror = null;
+
+    if (!path) {
+      modalPhoto.removeAttribute('src');
+      return;
+    }
+
+    modalPhoto.onload = function () {
+      modalPhoto.hidden = false;
+      modalPhotoFallback.hidden = true;
+    };
+    modalPhoto.onerror = function () {
+      modalPhoto.hidden = true;
+      modalPhotoFallback.hidden = false;
+    };
+    modalPhoto.alt = currentProduct ? currentProduct.name : '';
+    modalPhoto.src = path;
   }
 
   function closeModal() {
